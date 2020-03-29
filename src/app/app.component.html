@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="material-icons hospital-icon">
+      local_hospital
+    </span>
+    <span>Amigos Voluntários</span>
+
+    <span class="buttons-spacing"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button 
+        mat-menu-item 
+        [routerLink]="['/login']">Login</button>
+      <!-- <button 
+        mat-menu-item
+        [routerLink]="['/register']">Cadastro</button> -->
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,23 @@
+<mat-card class="schedule-time">
+    <mat-card-title>
+        <h4><strong>Horários para Voluntariado</strong></h4>
+    </mat-card-title>
+
+    <mat-list>
+        <div mat-subheader>Turnos</div>
+        <mat-list-item *ngFor="let turn of turns; let i = index">
+            <mat-icon mat-list-icon>alarm</mat-icon>
+
+            <mat-radio-group [(ngModel)]="turnChecked">
+                <mat-radio-button
+                [value]="i"></mat-radio-button>
+            </mat-radio-group>
+            <div mat-line>{{turn}}</div>
+        </mat-list-item>
+    </mat-list>
+
+    <button 
+    mat-raised-button color="primary"
+    (click)="send()"
+    [disabled]="turnChecked === undefined">Asd</button>
+</mat-card>
