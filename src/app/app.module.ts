@@ -17,11 +17,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { VolunteerPageComponent } from './volunteer-page/volunteer-page.component';
 import { MatListModule } from '@angular/material/list';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableModule} from '@angular/material/table';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -48,8 +49,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatPaginatorModule,
     MatTableModule,
     MatCheckboxModule,
-    HttpClientModule
-
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

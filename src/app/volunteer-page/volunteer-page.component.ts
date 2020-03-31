@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -18,14 +18,16 @@ import { Observable, of } from 'rxjs';
   templateUrl: './volunteer-page.component.html',
   styleUrls: ['./volunteer-page.component.scss']
 })
-export class VolunteerPageComponent implements OnInit {
+export class VolunteerPageComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   // TABLE
   selection = new SelectionModel<TableInfo>(true, []);
   displayedColumns: string[] = ['horarios', 'Turnos', 'Agendar'];
-  tableInfo: TableInfo[];
-  dataSource: any;
+  displayTable: TableInfo[];
+  dataSource;
+  data;
+  isLoadingResults: boolean;
 
   // DATE
   moment = moment();
@@ -46,27 +48,29 @@ export class VolunteerPageComponent implements OnInit {
 
   constructor(
     private scheduleService: ScheduleService
-  ) {
-    this.initializeTable();
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.initializeTable();
     this.intializeNavigationTable();
     this.getAllSchedule();
     this.scheduleHandle();
   }
 
+  ngAfterViewInit(): void {
+    this.convertSchedule();
+  }
+
   getAllSchedule(): void {
+    this.isLoadingResults = true;
     this.scheduleService.getAllSchedule().subscribe(scheduler => {
       if (scheduler) {
         scheduler.data.forEach(scheduleInfo => {
           this.newSchedule = [
             {
               dataInicio: scheduleInfo.begin.split('T').shift(),
-              horarioInicio: scheduleInfo.begin.split('T').pop(),
+              horarioInicio: scheduleInfo.begin.split('T').pop().substr(0, 5),
               dataFim: scheduleInfo.end.split('T').shift(),
-              horarioFim: scheduleInfo.end.split('T').pop(),
+              horarioFim: scheduleInfo.end.split('T').pop().substr(0, 5),
               maxVolunteer: scheduleInfo.maxVolunteer,
               totalVolunteers: scheduleInfo.totalVolunteers,
               id: scheduleInfo.id
@@ -82,7 +86,21 @@ export class VolunteerPageComponent implements OnInit {
   }
 
   convertSchedule(): void {
-    console.log(this.allSchedule);
+    if (this.allSchedule.length) {
+    console.log("VolunteerPageComponent -> convertSchedule -> this.allSchedule", this.allSchedule)
+
+      console.log(this.allSchedule.shift().horarioInicio)
+      console.log(moment(this.allSchedule.shift().horarioInicio).format('LT'))
+
+      // this.allSchedule.filter(all => {
+      //   all.dataInicio
+      // })
+
+      this.data = this.displayTable;
+      this.dataSource = new MatTableDataSource(this.data);
+      this.pageSize = 5;
+    }
+    this.isLoadingResults = false;
   }
 
   verifySchedulePage(pageEvent: PageEvent): void {
@@ -120,20 +138,20 @@ export class VolunteerPageComponent implements OnInit {
   }
 
   intializeNavigationTable(): void {
-    this.pageSize = 1;
+    this.pageSize = 5;
     this.pageIndex = 0;
     this.length = 276;
   }
 
-  initializeTable(): void {
-    this.dataSource = new MatTableDataSource<TableInfo>(this.tableInfo);
-    this.tableInfo = [
-      { horarios: '06:00 as 12:00', agendar: '', turno: 'Matutino', data: '' },
-      { horarios: '12:00 as 18:00', agendar: '', turno: 'Vespertino', data: '' },
-      { horarios: '18:00 as 24:00', agendar: '', turno: 'Noturno', data: '' },
-      { horarios: '24:00 as 06:00', agendar: '', turno: 'Madrugada', data: '' }
-    ];
-  }
+  // initializeTable(): void {
+  //   // this.dataSource = new MatTableDataSource<displayTable>(this.displayTable);
+  //   this.displayTable = [
+  //     { horarios: '06:00 as 12:00', agendar: '', turno: 'Matutino', data: '' },
+  //     { horarios: '12:00 as 18:00', agendar: '', turno: 'Vespertino', data: '' },
+  //     { horarios: '18:00 as 24:00', agendar: '', turno: 'Noturno', data: '' },
+  //     { horarios: '24:00 as 06:00', agendar: '', turno: 'Madrugada', data: '' }
+  //   ];
+  // }
 
   scheduleHandle(modifyDate?: string, days?: number): any {
     if (modifyDate === 'add') {
@@ -159,13 +177,13 @@ export class VolunteerPageComponent implements OnInit {
   }
 
   sendSchedules(): void {
-  //   this.selection.selected.forEach(res => {
+    this.selection.selected.forEach(res => {
   //     this.scheduleDone = {
   //       idVolunteer: res.
   //     }
   //     this.scheduleService.sendSchedule()
-  //     console.log(res);
-  //   })
+      console.log(res);
+    })
   // }
   }
 }
