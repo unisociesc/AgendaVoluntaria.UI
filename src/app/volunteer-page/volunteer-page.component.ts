@@ -1,6 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Turn } from '../models/turn-form-model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { SelectionModel } from '@angular/cdk/collections';
+
+import { ScheduleService } from '../services/schedule.service';
+
+import { Schedule, ScheduleData, SchedulingDone } from '../models/scheduler.model';
+
+import * as moment from 'moment';
+import 'moment/locale/pt-br';
+import { TableInfo } from '../models/tabel.model';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-volunteer-page',
@@ -8,25 +19,153 @@ import { Turn } from '../models/turn-form-model';
   styleUrls: ['./volunteer-page.component.scss']
 })
 export class VolunteerPageComponent implements OnInit {
-  @Input() radioButton: string;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  turns = [
-    '06:00 as 12:00',
-    '12:00 as 18:00',
-    '18:00 as 24:00',
-    '24:00 as 06:00'
-  ];
+  // TABLE
+  selection = new SelectionModel<TableInfo>(true, []);
+  displayedColumns: string[] = ['horarios', 'Turnos', 'Agendar'];
+  tableInfo: TableInfo[];
+  dataSource: any;
 
-  model = new Turn();
-  turnChecked: number;
+  // DATE
+  moment = moment();
+  actualDate = moment().locale('pt-BR').format('LL');
+  date = this.moment;
 
-  constructor() { }
+  // PAGINATION
+  pageEvent: PageEvent;
+  pageIndex: number;
+  pageSize: number;
+  length: number;
 
-  ngOnInit(): void {
+  // SCHEDULE
+  schedule: Schedule[] = [];
+  newSchedule: ScheduleData[];
+  allSchedule: ScheduleData[] = [];
+  scheduleDone: SchedulingDone;
+
+  constructor(
+    private scheduleService: ScheduleService
+  ) {
+    this.initializeTable();
   }
 
+  ngOnInit(): void {
+    this.initializeTable();
+    this.intializeNavigationTable();
+    this.getAllSchedule();
+    this.scheduleHandle();
+  }
 
-  send() {
-    console.log(this.turnChecked)
+  getAllSchedule(): void {
+    this.scheduleService.getAllSchedule().subscribe(scheduler => {
+      if (scheduler) {
+        scheduler.data.forEach(scheduleInfo => {
+          this.newSchedule = [
+            {
+              dataInicio: scheduleInfo.begin.split('T').shift(),
+              horarioInicio: scheduleInfo.begin.split('T').pop(),
+              dataFim: scheduleInfo.end.split('T').shift(),
+              horarioFim: scheduleInfo.end.split('T').pop(),
+              maxVolunteer: scheduleInfo.maxVolunteer,
+              totalVolunteers: scheduleInfo.totalVolunteers,
+              id: scheduleInfo.id
+            }
+          ];
+
+          this.allSchedule.push(...this.newSchedule);
+        });
+      }
+
+      this.convertSchedule();
+    });
+  }
+
+  convertSchedule(): void {
+    console.log(this.allSchedule);
+  }
+
+  verifySchedulePage(pageEvent: PageEvent): void {
+    if (
+      this.paginator.hasNextPage() &&
+      pageEvent.pageIndex >= 1 &&
+      pageEvent.previousPageIndex >= 0) {
+
+      this.scheduleHandle('add', pageEvent.pageIndex);
+      this.dataSource.data.forEach(table => {
+        table.data = this.actualDate;
+      });
+
+      this.selection.clear();
+    }
+    if (
+      !this.paginator.hasPreviousPage() &&
+      pageEvent.previousPageIndex >= 0
+    ) {
+
+      this.scheduleHandle('subtract', pageEvent.pageIndex);
+      this.dataSource.data.forEach(table => {
+        table.data = this.actualDate;
+      });
+
+      this.selection.clear();
+    }
+  }
+
+  scheduledTimes(event): void {
+    // Todos os horarios marcados
+    this.selection.selected.forEach(res => {
+
+    });
+  }
+
+  intializeNavigationTable(): void {
+    this.pageSize = 1;
+    this.pageIndex = 0;
+    this.length = 276;
+  }
+
+  initializeTable(): void {
+    this.dataSource = new MatTableDataSource<TableInfo>(this.tableInfo);
+    this.tableInfo = [
+      { horarios: '06:00 as 12:00', agendar: '', turno: 'Matutino', data: '' },
+      { horarios: '12:00 as 18:00', agendar: '', turno: 'Vespertino', data: '' },
+      { horarios: '18:00 as 24:00', agendar: '', turno: 'Noturno', data: '' },
+      { horarios: '24:00 as 06:00', agendar: '', turno: 'Madrugada', data: '' }
+    ];
+  }
+
+  scheduleHandle(modifyDate?: string, days?: number): any {
+    if (modifyDate === 'add') {
+      this.actualDate = moment()
+        .add(days, 'day')
+        .locale('pt-BR')
+        .format('LL');
+
+    } else if (modifyDate === 'subtract') {
+
+      this.actualDate = moment()
+        .subtract(days, 'day')
+        .locale('pt-BR')
+        .format('LL');
+    } else {
+
+      this.actualDate = moment()
+        .locale('pt-BR')
+        .format('LL');
+    }
+
+    return this.actualDate;
+  }
+
+  sendSchedules(): void {
+  //   this.selection.selected.forEach(res => {
+  //     this.scheduleDone = {
+  //       idVolunteer: res.
+  //     }
+  //     this.scheduleService.sendSchedule()
+  //     console.log(res);
+  //   })
+  // }
   }
 }

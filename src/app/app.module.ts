@@ -18,6 +18,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { VolunteerPageComponent } from './volunteer-page/volunteer-page.component';
 import { MatListModule } from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +44,12 @@ import {MatRadioModule} from '@angular/material/radio';
     MatMenuModule,
     MatSelectModule,
     MatListModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatCheckboxModule,
+    HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

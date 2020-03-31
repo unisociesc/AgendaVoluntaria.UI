@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { Login } from '../models/login-form.model';
 
+import { LoginService } from '../services/login.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,14 +15,12 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   model = new Login();
-
   selected: string;
-  roles = [
-    'Voluntário',
-    'Psicologo'
-  ];
 
-  constructor(private route: Router) { }
+  constructor(
+    private route: Router,
+    private loginService: LoginService
+    ) { }
 
   ngOnInit(): void {
     this.formControl();
@@ -36,11 +36,7 @@ export class LoginComponent implements OnInit {
       password: new FormControl(
         this.model.password, [
         Validators.required
-      ]),
-      role: new FormControl(
-        this.model.role, [
-          Validators.required
-        ])
+      ])
     });
   }
 
@@ -57,8 +53,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form) {
-    console.log(form)
-    console.log(this.loginForm)
-      this.route.navigate(['volunteer']);
+    this.loginService.login(this.email.value, this.password.value).subscribe(res => {
+      if (res) {
+        this.route.navigate(['volunteer']);
+      }
+    });
   }
 }
