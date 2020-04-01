@@ -67,8 +67,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "agenda-covid:build",
-            "proxyConfig": "./proxy.conf.js"
+            "browserTarget": "agenda-covid:build"
           },
           "configurations": {
             "production": {
@@ -128,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "agenda-covid"
+  "defaultProject": "agenda-covid",
+  "cli": {
+    "analytics": false
+  }
 }

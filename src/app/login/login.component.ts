@@ -53,10 +53,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form) {
-    this.loginService.login(this.email.value, this.password.value).subscribe(res => {
-      if (res) {
-        this.route.navigate(['volunteer']);
-      }
+    this.loginService.login(this.email.value, this.password.value)
+      .subscribe(res => {
+        if (res) {
+          this.route.navigate(['schedule']);
+        }
     });
   }
 }

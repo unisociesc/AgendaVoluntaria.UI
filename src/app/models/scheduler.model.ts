@@ -1,11 +1,14 @@
 export interface Schedule {
-    begin: string;
-    end: string;
+    id: string;
     maxVolunteer: number;
     totalVolunteers: number;
-    id: string;
-    createAt: string;
-    updateAt: string;
+    date: string;
+    hours: ScheduleTime;
+}
+
+export interface ScheduleTime {
+    begin: string;
+    end: string;
 }
 
 export interface ScheduleDates {
@@ -14,16 +17,13 @@ export interface ScheduleDates {
 }
 
 export interface ScheduleData {
-    horarioInicio: string;
-    horarioFim: string;
-    dataInicio: string;
-    dataFim: string;
+    id: string;
+    data: string;
     maxVolunteer: number;
     totalVolunteers: number;
-    id: string;
 }
 
 export interface SchedulingDone {
-    idVolunteer: string;
+    idUser: string;
     idShift: string;
 }

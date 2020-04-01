@@ -17,7 +17,7 @@ export class ScheduleService {
     private loginService: LoginService
   ) { }
 
-  getAllSchedule(): Observable<ScheduleDates> {
+  getSchedule(days?: number): Observable<ScheduleDates> {
     const header = {
       options: new HttpHeaders({
         Authorization: `Bearer ${this.loginService.getToken()}`
@@ -25,7 +25,7 @@ export class ScheduleService {
     };
 
     return this.http.get<ScheduleDates>(
-      `${this.url}/${this.endpoint}`, { headers: header.options }
+      `${this.url}/${this.endpoint}/${days}`, { headers: header.options }
     );
   }
 

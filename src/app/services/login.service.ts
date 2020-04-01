@@ -33,6 +33,11 @@ export class LoginService {
   }
 
   decodeJWT(): any {
-    jwt_decode(this.getToken());
+    return jwt_decode(this.getToken());
+  }
+
+  getUserInfoJWT(): string {
+    const decodedToken = this.decodeJWT();
+    return decodedToken.IdUser;
   }
 }
