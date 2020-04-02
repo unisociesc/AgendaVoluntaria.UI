@@ -1,0 +1,93 @@
+# Docker
+# Build a Docker image 
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - release/1
+    - master
+
+pr:
+- master
+- release
+
+resources:
+- repo: self
+
+variables:
+  major: 1
+  minor: $[counter(variables['major'], 0)]
+  tag: $(major).$(minor)
+
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        containerRegistry: 'Docker Hub - Gabriel Meyer'
+        repository: 'unisociesc/agendavoluntaria-ui'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        buildContext: '.'
+        tags: '$(tag)'
+    - task: Docker@2
+      displayName: Push an image
+      condition: |
+        and ( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+      inputs:
+        containerRegistry: 'Docker Hub - Gabriel Meyer'
+        repository: 'unisociesc/agendavoluntaria-ui'
+        command: 'push'
+        tags: '$(tag)'
+    
+    - task: replacetokens@3
+      inputs:
+        rootDirectory: '$(Build.SourcesDirectory)'
+        targetFiles: '**/*.yml'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: true
+        tokenPrefix: '#{'
+        tokenSuffix: '}#'
+    - task: CopyFilesOverSSH@0
+      condition: |
+        and ( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+      inputs:
+        sshEndpoint: 'Servidor ProdCom'
+        sourceFolder: '$(Build.SourcesDirectory)'
+        contents: '**/docker-compose.yml'
+        targetFolder: '/var/www/web'
+        readyTimeout: '20000'
+    - task: SSH@0
+      condition: |
+        and ( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+      inputs:
+        sshEndpoint: 'Servidor ProdCom'
+        runOptions: 'inline'
+        inline: 'docker stack deploy -c /var/www/web/docker-compose.yml agenda-api'
+        failOnStdErr: false
+        readyTimeout: '20000'
+    
+    - task: GitHubRelease@1
+      condition: |
+        and ( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+      inputs:
+        gitHubConnection: 'github.com_GHMeyer0'
+        repositoryName: '$(Build.Repository.Name)'
+        action: 'create'
+        target: '$(Build.SourceVersion)'
+        tagSource: 'gitTag'
+        tagPattern: '$(tag)'
+        changeLogCompareToRelease: 'lastFullRelease'
+        changeLogType: 'commitBased'
