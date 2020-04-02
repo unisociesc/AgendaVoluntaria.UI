@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Login } from '../models/login-form.model';
 
 import { LoginService } from '../services/login.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +21,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private route: Router,
-    private loginService: LoginService
-    ) { }
+    private loginService: LoginService,
+    private toaster: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.formControl();
@@ -58,6 +61,12 @@ export class LoginComponent implements OnInit {
         if (res) {
           this.route.navigate(['schedule']);
         }
-    });
+      },
+      (httpError: HttpErrorResponse) => {
+        this.toaster.open(httpError.error.errors, 'OK', {
+          duration: 5000,
+          panelClass: ['error-toaster']
+        });
+      });
   }
 }

@@ -20,6 +20,11 @@
             <th mat-header-cell *matHeaderCellDef> Turnos </th>
             <td mat-cell *matCellDef="let element"> {{element.turno}} </td>
           </ng-container>
+
+          <ng-container matColumnDef="Voluntários Atual/Max">
+            <th mat-header-cell *matHeaderCellDef> Voluntários Atual/Max </th>
+            <td mat-cell *matCellDef="let element" class="volunters-number"> {{element.allVolunteers}} </td>
+          </ng-container>
           
           <ng-container matColumnDef="Agendar">
               <th mat-header-cell *matHeaderCellDef> Agendar? </th>
@@ -45,7 +50,7 @@
         [pageIndex]="pageIndex"
         [pageSize]="pageSize"
         (page)="pageEvent = $event"
-        (click)="verifySchedulePage(pageEvent)">   
+        (click)="schedulePaginator(pageEvent)">
       </mat-paginator>
   
       <button 
@@ -56,3 +61,5 @@
       </button>
   </mat-card>
 </ng-container>
+
+<div class="sociesc-logo"></div>

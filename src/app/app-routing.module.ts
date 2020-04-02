@@ -7,12 +7,15 @@ import { ScheduleComponent } from './schedule/schedule.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { CheckinComponent } from './checkin/checkin.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: LoginComponent },
   { path: 'login', redirectTo: '' },
+  { path: 'logout', component: LogoutComponent },
   { path: 'schedule', component: ScheduleComponent, canActivate: [AuthGuard] },
-  { path: 'checkin', component: CheckinComponent, canActivate: [AuthGuard] }
+  { path: 'checkin', component: CheckinComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({

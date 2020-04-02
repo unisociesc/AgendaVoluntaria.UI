@@ -18,8 +18,10 @@ table {
 }
 
 .btn-schedule {
-    align-items: center;
-    margin: 20px 0 0 50px;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .schedule-box {
@@ -53,4 +55,8 @@ table {
     z-index: 1;
     top: 40%;
     left: 35%;
+}
+
+.volunters-number {
+    text-align: center;
 }

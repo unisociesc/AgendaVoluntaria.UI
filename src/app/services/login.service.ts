@@ -11,6 +11,7 @@ import * as jwt_decode from 'jwt-decode';
 export class LoginService {
   private endpoint = 'api/auth/login';
   private token: string;
+
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {

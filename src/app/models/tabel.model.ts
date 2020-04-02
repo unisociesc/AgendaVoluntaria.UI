@@ -4,4 +4,7 @@ export interface TableInfo {
     agendar?: string;
     data: any;
     id: string;
+    maxVolunteer: number;
+    totalVolunteers: number;
+    allVolunteers: string;
 }

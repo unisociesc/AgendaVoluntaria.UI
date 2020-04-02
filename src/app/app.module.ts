@@ -24,6 +24,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CheckinComponent } from './checkin/checkin.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LogoutComponent } from './logout/logout.component';
+
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,7 @@ import { CheckinComponent } from './checkin/checkin.component';
     LoginComponent,
     ScheduleComponent,
     CheckinComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,9 +57,11 @@ import { CheckinComponent } from './checkin/checkin.component';
     MatTableModule,
     MatCheckboxModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
+
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

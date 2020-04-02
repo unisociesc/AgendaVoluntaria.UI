@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -23,7 +25,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
 
   // TABLE
   selection = new SelectionModel<TableInfo>(true, []);
-  displayedColumns: string[] = ['horarios', 'Agendar'];
+  displayedColumns: string[] = ['horarios', 'Voluntários Atual/Max', 'Agendar'];
   displayTable: TableInfo[] = [];
   dataSource;
   data: any;
@@ -50,7 +52,8 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
 
   constructor(
     private scheduleService: ScheduleService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private toaster: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -86,12 +89,15 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
 
   populateTableWithSchedulers(): void {
     if (this.allSchedule) {
-      this.allSchedule.map(date => {
-        if (moment(date.date).locale('pt-BR').format('LL') === this.actualDate) {
+      this.allSchedule.map(data => {
+        if (moment(data.date).locale('pt-BR').format('LL') === this.actualDate) {
           this.displayTable.push({
-            data: moment(date.date).locale('pt-BR').format('LL'),
-            horarios: `${date.hours.begin} as ${date.hours.end}`,
-            id: date.id
+            data: moment(data.date).locale('pt-BR').format('LL'),
+            horarios: `${data.hours.begin} as ${data.hours.end}`,
+            id: data.id,
+            maxVolunteer: data.maxVolunteer,
+            totalVolunteers: data.totalVolunteers,
+            allVolunteers: `${data.totalVolunteers}/${data.maxVolunteer}`
           });
         }
       });
@@ -99,11 +105,12 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
       this.data = this.displayTable;
       this.dataSource = new MatTableDataSource(this.data);
       this.isLoadingResults = false;
+      this.verifyMaxNumberVolunteers();
     }
   }
 
   // TODO: Verificar o bug dos numeros da navegação quando avança a página
-  verifySchedulePage(pageEvent: PageEvent): void {
+  schedulePaginator(pageEvent: PageEvent): void {
     if (
       this.paginator.hasNextPage() &&
       pageEvent.pageIndex >= 1 &&
@@ -111,17 +118,8 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
 
       this.scheduleHandle('add', pageEvent.pageIndex);
 
-      this.dataSource.data = [];
-      this.allSchedule.forEach(allData => {
-        if (moment(allData.date).locale('pt-BR').format('LL') === this.actualDate) {
-          this.dataSource.data.push({
-            data: allData.date,
-            id: allData.id,
-            horarios: `${allData.hours.begin} as ${allData.hours.end}`
-          });
-        }
-      });
-
+      this.updateScheduleTable();
+      this.verifyMaxNumberVolunteers();
       this.verifyWithCanNavegate();
       this.setTableData();
 
@@ -135,23 +133,30 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
 
       this.scheduleHandle('subtract', pageEvent.pageIndex);
 
-      this.dataSource.data = [];
-      this.allSchedule.forEach(allData => {
-        if (moment(allData.date).locale('pt-BR').format('LL') === this.actualDate) {
-          this.dataSource.data.push({
-            data: allData.date,
-            id: allData.id,
-            horarios: `${allData.hours.begin} as ${allData.hours.end}`
-          });
-        }
-      });
-
+      this.updateScheduleTable();
+      this.verifyMaxNumberVolunteers();
       this.verifyWithCanNavegate();
       this.setTableData();
 
       this.checkDone = false;
       this.selection.clear();
     }
+  }
+
+  updateScheduleTable(): void {
+    this.dataSource.data = [];
+    this.allSchedule.forEach(allData => {
+      if (moment(allData.date).locale('pt-BR').format('LL') === this.actualDate) {
+        this.dataSource.data.push({
+          data: allData.date,
+          id: allData.id,
+          horarios: `${allData.hours.begin} as ${allData.hours.end}`,
+          maxVolunteer: allData.maxVolunteer,
+          totalVolunteers: allData.totalVolunteers,
+          allVolunteers: `${allData.totalVolunteers}/${allData.maxVolunteer}`
+        });
+      }
+    });
   }
 
   verifyWithCanNavegate(): void {
@@ -192,6 +197,18 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     this.length = 15;
   }
 
+  verifyMaxNumberVolunteers(): boolean {
+    let max: boolean;
+
+    this.dataSource.data.forEach(data => {
+      if (data.maxVolunteer === data.totalVolunteers) {
+        max = true;
+      }
+    });
+
+    return max;
+  }
+
   scheduleHandle(modifyDate?: string, days?: number): any {
     if (modifyDate === 'add') {
       this.actualDate = moment()
@@ -221,8 +238,32 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
         idShift: res.id,
         idUser: this.userID
       };
+
       this.scheduleService.sendSchedule(this.scheduleDone)
-        .subscribe();
+        .subscribe(data => {
+          if (data) {
+            this.toaster.open('Turno agendado com sucesso', 'OK', {
+              duration: 5000,
+              panelClass: ['sucess-toaster']
+            });
+          }
+        },
+          (responseFail: HttpErrorResponse) => {
+            if (responseFail.status === 400) {
+              this.toaster.open(responseFail.error.errors, 'OK', {
+                duration: 5000,
+                panelClass: ['error-toaster']
+              });
+              return;
+            }
+            if (this.verifyMaxNumberVolunteers()) {
+              this.toaster.open(responseFail.error.errors, 'OK', {
+                duration: 5000,
+                panelClass: ['error-toaster']
+              });
+            }
+          }
+        );
     });
   }
 }
