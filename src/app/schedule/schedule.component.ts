@@ -7,7 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ScheduleService } from '../services/schedule.service';
 import { LoginService } from '../services/login.service';
 
-import { Schedule, ScheduleData, SchedulingDone } from '../models/scheduler.model';
+import { Schedule, SchedulingDone } from '../models/scheduler.model';
 import { TableInfo } from '../models/tabel.model';
 
 import * as moment from 'moment';
@@ -42,11 +42,8 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   length: number;
 
   // SCHEDULE
-  schedule: Schedule[] = [];
-  newSchedule: ScheduleData[];
   allSchedule: Schedule[] = [];
   scheduleDone: SchedulingDone;
-  scheduleElm = [];
 
   // User
   userID: string;
@@ -55,6 +52,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     private scheduleService: ScheduleService,
     private loginService: LoginService
   ) { }
+
   ngOnInit(): void {
     this.saveUserJWT();
     this.getScheduler();
@@ -88,9 +86,8 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
 
   populateTableWithSchedulers(): void {
     if (this.allSchedule) {
-      this.allSchedule.forEach(date => {
+      this.allSchedule.map(date => {
         if (moment(date.date).locale('pt-BR').format('LL') === this.actualDate) {
-
           this.displayTable.push({
             data: moment(date.date).locale('pt-BR').format('LL'),
             horarios: `${date.hours.begin} as ${date.hours.end}`,
@@ -112,10 +109,20 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
       pageEvent.previousPageIndex >= 0) {
 
       this.scheduleHandle('add', pageEvent.pageIndex);
-      this.dataSource.data.forEach(table => {
-        table.data = this.actualDate;
+
+      this.dataSource.data = [];
+      this.allSchedule.forEach(allData => {
+        if (moment(allData.date).locale('pt-BR').format('LL') === this.actualDate) {
+          this.dataSource.data.push({
+            data: allData.date,
+            id: allData.id,
+            horarios: `${allData.hours.begin} as ${allData.hours.end}`
+          });
+        }
       });
 
+      this.data = this.dataSource.data;
+      this.dataSource = new MatTableDataSource(this.data);
       this.checkDone = false;
       this.selection.clear();
     }
@@ -125,8 +132,16 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     ) {
 
       this.scheduleHandle('subtract', pageEvent.pageIndex);
-      this.dataSource.data.forEach(table => {
-        table.data = this.actualDate;
+
+      this.dataSource.data = [];
+      this.allSchedule.forEach(allData => {
+        if (moment(allData.date).locale('pt-BR').format('LL') === this.actualDate) {
+          this.dataSource.data.push({
+            data: allData.date,
+            id: allData.id,
+            horarios: `${allData.hours.begin} as ${allData.hours.end}`
+          });
+        }
       });
 
       this.checkDone = false;
@@ -177,13 +192,13 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   }
 
   sendSchedules(): void {
-   this.selection.selected.forEach(res => {
+    this.selection.selected.forEach(res => {
       this.scheduleDone = {
         idShift: res.id,
         idUser: this.userID
       };
       this.scheduleService.sendSchedule(this.scheduleDone)
         .subscribe();
-   });
+    });
   }
 }
