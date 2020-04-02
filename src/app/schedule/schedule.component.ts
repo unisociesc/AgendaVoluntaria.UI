@@ -105,7 +105,6 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
       this.data = this.displayTable;
       this.dataSource = new MatTableDataSource(this.data);
       this.isLoadingResults = false;
-      this.verifyMaxNumberVolunteers();
     }
   }
 
@@ -119,7 +118,6 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
       this.scheduleHandle('add', pageEvent.pageIndex);
 
       this.updateScheduleTable();
-      this.verifyMaxNumberVolunteers();
       this.verifyWithCanNavegate();
       this.setTableData();
 
@@ -134,7 +132,6 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
       this.scheduleHandle('subtract', pageEvent.pageIndex);
 
       this.updateScheduleTable();
-      this.verifyMaxNumberVolunteers();
       this.verifyWithCanNavegate();
       this.setTableData();
 
