@@ -102,6 +102,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // TODO: Verificar o bug dos numeros da navegação quando avança a página
   verifySchedulePage(pageEvent: PageEvent): void {
     if (
       this.paginator.hasNextPage() &&
@@ -121,8 +122,9 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
         }
       });
 
-      this.data = this.dataSource.data;
-      this.dataSource = new MatTableDataSource(this.data);
+      this.verifyWithCanNavegate();
+      this.setTableData();
+
       this.checkDone = false;
       this.selection.clear();
     }
@@ -144,9 +146,31 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
         }
       });
 
+      this.verifyWithCanNavegate();
+      this.setTableData();
+
       this.checkDone = false;
       this.selection.clear();
     }
+  }
+
+  verifyWithCanNavegate(): void {
+    let count = 1;
+    let countDate = this.actualDate;
+
+    this.allSchedule.forEach(allData => {
+      if (moment(allData.date).locale('pt-BR').format('LL') !== countDate) {
+        countDate = moment(allData.date).locale('pt-BR').format('LL');
+        count += 1;
+      }
+    });
+
+    this.length = count;
+  }
+
+  setTableData(): void {
+    this.data = this.dataSource.data;
+    this.dataSource = new MatTableDataSource(this.data);
   }
 
   scheduleCheckedHandle(event, elm): void {
