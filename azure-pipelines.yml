@@ -75,7 +75,7 @@ stages:
       inputs:
         sshEndpoint: 'Servidor ProdCom'
         runOptions: 'inline'
-        inline: 'docker stack deploy -c /var/www/web/docker-compose.yml agenda-api'
+        inline: 'docker stack deploy -c /var/www/web/docker-compose.yml agenda-web'
         failOnStdErr: false
         readyTimeout: '20000'
     
