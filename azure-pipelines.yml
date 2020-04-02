@@ -23,7 +23,8 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+        containerRegistry: 'Docker Hub - Gabriel Meyer'
+        repository: 'unisociesc/agendavoluntaria-ui'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
