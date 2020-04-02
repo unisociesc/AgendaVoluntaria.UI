@@ -176,15 +176,17 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   }
 
   scheduleCheckedHandle(event, elm): void {
-    if (event) {
-      this.selection.toggle(elm);
-    } else {
-      event = null;
-      this.selection.deselect(elm);
-    }
+    const oldElm = elm;
 
-    if (event.source.checked) {
-      this.checkDone = true;
+    this.selection.clear();
+
+    if (event) {
+      if (elm !== oldElm) {
+        this.selection.toggle(elm);
+        this.selection.isSelected(elm);
+      } else {
+        this.selection.toggle(elm);
+      }
     }
   }
 
