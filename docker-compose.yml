@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   agendavoluntaria-ui:
-    image: unisociesc/agendavoluntaria-ui:latest
+    image: unisociesc/agendavoluntaria-ui:#{tag}#
     networks:
       - frontend
       - backend
