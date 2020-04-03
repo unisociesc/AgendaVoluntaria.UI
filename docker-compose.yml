@@ -19,9 +19,6 @@ services:
         limits:
           cpus: '0.50'
           memory: 512M
-        reservations:
-          cpus: '0.25'
-          memory: 128M
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.agendavoluntaria-ui.rule=Host(`triagemcovid19.prodcom.com.br`)"
