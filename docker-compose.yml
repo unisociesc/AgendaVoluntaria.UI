@@ -7,7 +7,7 @@ services:
       - frontend
       - backend
     deploy:
-      replicas: 10
+      replicas: 5
       update_config:
         delay: 15s
         parallelism: 5
