@@ -1,0 +1,29 @@
+.card {
+    width: 74%;
+    text-align: center;
+    padding: 10% 6% 8px 10%;
+    margin-left: 5%;
+    margin-right: 5%;
+    
+}
+
+.buttons {
+    display: grid;
+
+    .schedule-button {
+    
+        padding: 0px 30px 0px 20px;
+        margin-bottom: 10px;
+
+        .schedule-icon {
+            padding: 0px 5px 0px 0px;
+        }
+    }
+    
+    .checkin-button {
+        margin: 10px 1px 0 0;
+    }
+    .checkout-button {
+        margin: 10px 1px 0 0;
+    }    
+}

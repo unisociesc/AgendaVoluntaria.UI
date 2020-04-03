@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.email.value, this.password.value)
       .subscribe(res => {
         if (res) {
-          this.route.navigate(['schedule']);
+          this.route.navigate(['home']);
         }
       },
       (httpError: HttpErrorResponse) => {

@@ -28,6 +28,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LogoutComponent } from './logout/logout.component';
 
 import { CookieService } from 'ngx-cookie-service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CookieService } from 'ngx-cookie-service';
     ScheduleComponent,
     CheckinComponent,
     LogoutComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
