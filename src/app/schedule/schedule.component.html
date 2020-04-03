@@ -53,12 +53,14 @@
         (click)="schedulePaginator(pageEvent)">
       </mat-paginator>
   
-      <button 
+      <mat-card-actions>
+        <button 
         mat-raised-button color="primary"
         class="btn-schedule"
         (click)="sendSchedules()"
         [disabled]="">Agendar Turno/Horário
       </button>
+    </mat-card-actions>
   </mat-card>
 </ng-container>
 
