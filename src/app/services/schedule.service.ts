@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
 export class ScheduleService {
   private endpoint = 'shifts';
   private userShift = 'userShifts';
-  private url = environment.endpoint;
+  private url = environment.apiUrl;
 
   constructor(
     private http: HttpClient,
