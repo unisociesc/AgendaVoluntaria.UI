@@ -15,7 +15,7 @@ import { environment } from '../../environments/environment';
 export class LoginService {
   private endpoint = 'auth/login';
   private token: string;
-  private url = environment.endpoint;
+  private url = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  endpoint: 'https://agendavoluntaria.herokuapp.com/api/'
+  apiUrl: 'https://agendavoluntaria.herokuapp.com/api/'
 };
 
 /*
