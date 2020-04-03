@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
+
 import { ScheduleDates, SchedulingDone } from '../models/scheduler.model';
 import { LoginService } from './login.service';
+
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleService {
-  private url = 'https://agendavoluntaria.herokuapp.com';
-  private endpoint = 'api/shifts';
-  private userShift = 'api/userShifts';
+  private endpoint = 'shifts';
+  private userShift = 'userShifts';
+  private url = environment.endpoint;
 
   constructor(
     private http: HttpClient,
@@ -25,7 +29,7 @@ export class ScheduleService {
     };
 
     return this.http.get<ScheduleDates>(
-      `${this.url}/${this.endpoint}/${days}`, { headers: header.options }
+      `${this.url}${this.endpoint}/${days}`, { headers: header.options }
     );
   }
 
@@ -37,7 +41,7 @@ export class ScheduleService {
     };
 
     return this.http.post<SchedulingDone>(
-      `${this.url}/${this.userShift}`, payload, { headers: header.options }
+      `${this.url}${this.userShift}`, payload, { headers: header.options }
     );
   }
 }

@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
+
 import { tap } from 'rxjs/operators';
 
 import * as jwt_decode from 'jwt-decode';
+
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private endpoint = 'api/auth/login';
+  private endpoint = 'auth/login';
   private token: string;
+  private url = environment.endpoint;
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +26,7 @@ export class LoginService {
     };
 
     return this.http.post<Observable<any>>(
-      `https://agendavoluntaria.herokuapp.com/${this.endpoint}`, payload
+      `${this.url}${this.endpoint}`, payload
     ).pipe(
       tap(res => {
         this.token = res.data.token;
