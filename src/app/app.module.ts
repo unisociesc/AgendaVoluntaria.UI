@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +32,7 @@ import { LogoutComponent } from './logout/logout.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { HomeComponent } from './home/home.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ import { HomeComponent } from './home/home.component';
     ScheduleComponent,
     CheckinComponent,
     LogoutComponent,
-    HomeComponent
+    HomeComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +52,11 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
+    MatSidenavModule,
+    MatButtonToggleModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatTabsModule,
     MatInputModule,
     MatIconModule,
     MatMenuModule,
