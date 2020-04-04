@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -52,6 +53,7 @@ import { ViewScheduleComponent } from './components/view-schedule/view-schedule.
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatSlideToggleModule,
     MatToolbarModule,
     MatCardModule,
     MatSidenavModule,
