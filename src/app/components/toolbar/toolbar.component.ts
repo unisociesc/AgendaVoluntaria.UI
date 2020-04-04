@@ -10,8 +10,10 @@ import { LoginService } from '../../services/login.service';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor(private loginService: LoginService,
-              private router: Router) { }
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -21,11 +23,15 @@ export class ToolbarComponent implements OnInit {
   }
 
   getUserName() {
-    return this.isAuth() ? this.loginService.decodeJWT().unique_name : 'Visitante';
+    return this.isAuth()
+      ? this.loginService.decodeJWT().unique_name
+      : 'Visitante';
   }
 
   getEmailAccount() {
-    return this.isAuth() ? this.loginService.decodeJWT().email : 'Não autenticado';
+    return this.isAuth()
+      ? this.loginService.decodeJWT().email
+      : 'Não autenticado';
   }
 
   goHome() {

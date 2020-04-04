@@ -12,9 +12,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ScheduleService {
-  private endpoint = 'shifts';
-  private userShift = 'userShifts';
-  private url = environment.apiUrl;
+  private shiftEndpoint = 'shifts';
+  private userShiftEndpoint = 'userShifts';
+  private apiURL = environment.apiUrl;
 
   constructor(
     private http: HttpClient,
@@ -29,7 +29,7 @@ export class ScheduleService {
     };
 
     return this.http.get<ScheduleDates>(
-      `${this.url}${this.endpoint}/${days}`, { headers: header.options }
+      `${this.apiURL}${this.shiftEndpoint}/${days}`, { headers: header.options }
     );
   }
 
@@ -41,7 +41,13 @@ export class ScheduleService {
     };
 
     return this.http.post<SchedulingDone>(
-      `${this.url}${this.userShift}`, payload, { headers: header.options }
+      `${this.apiURL}${this.userShiftEndpoint}`, payload, { headers: header.options }
+    );
+  }
+
+  deleteSchedule(payload: object): Observable<any> {
+    return this.http.delete<Observable<any>>(
+      `${this.shiftEndpoint}${this.userShiftEndpoint}${payload}`
     );
   }
 }
