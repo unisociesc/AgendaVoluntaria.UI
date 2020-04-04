@@ -17,7 +17,6 @@ export class CheckinComponent implements OnInit {
   }
 
   doCheckout(): void {
-    
   }
 
 }

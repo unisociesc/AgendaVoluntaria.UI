@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Login } from '../models/login-form.model';
+import { Login } from '../../models/login-form.model';
 
-import { LoginService } from '../services/login.service';
+import { LoginService } from '../../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 

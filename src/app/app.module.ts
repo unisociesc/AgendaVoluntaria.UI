@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { ScheduleComponent } from './schedule/schedule.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -26,13 +26,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CheckinComponent } from './checkin/checkin.component';
+import { CheckinComponent } from './components/checkin/checkin.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { LogoutComponent } from './logout/logout.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 import { CookieService } from 'ngx-cookie-service';
-import { HomeComponent } from './home/home.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { HomeComponent } from './components/home/home.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     CheckinComponent,
     LogoutComponent,
     HomeComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ViewScheduleComponent
   ],
   imports: [
     BrowserModule,

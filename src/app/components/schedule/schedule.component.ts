@@ -6,11 +6,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { ScheduleService } from '../services/schedule.service';
-import { LoginService } from '../services/login.service';
+import { ScheduleService } from '../../services/schedule.service';
+import { LoginService } from '../../services/login.service';
 
-import { Schedule, SchedulingDone } from '../models/scheduler.model';
-import { TableInfo } from '../models/tabel.model';
+import { Schedule, SchedulingDone } from '../../models/scheduler.model';
+import { TableInfo } from '../../models/tabel.model';
 
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
