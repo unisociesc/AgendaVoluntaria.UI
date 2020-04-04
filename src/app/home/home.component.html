@@ -1,48 +1,50 @@
-<div class="body">
-    <mat-card class="card">
-        <mat-card-title>Menu</mat-card-title>
-        <mat-card-content>
-            <div class="buttons">
-                <button
-                    class="schedule-button"
-                    mat-raised-button color="primary" 
-                    routerLinkActive="router-link-active"
-                    [routerLink]="['/home/schedule']">
-                    <mat-icon class="schedule-icon">
-                        calendar_today
-                    </mat-icon>
-                    Agendar turnos
-                </button>
-                <button
-                    mat-raised-button color="primary" 
-                    [routerLink]="['/home/checkin']" 
-                    routerLinkActive="router-link-active">
-                    <mat-icon class="view-schedule-icon">
-                        event
-                    </mat-icon>
-                    Visualizar turnos
-                </button>
-                <button
-                    class="checkin-button"
-                    mat-raised-button color="primary" 
-                    [routerLink]="['/home/checkin']" 
-                    routerLinkActive="router-link-active">
-                    <mat-icon>
-                        done_all
-                    </mat-icon>
-                    Checkin
-                </button>
-                <button
-                    class="checkout-button"
-                    mat-raised-button color="primary" 
-                    [routerLink]="['/home/checkin']" 
-                    routerLinkActive="router-link-active">
-                    <mat-icon>
-                        directions_walk
-                    </mat-icon>
-                    Checkout
-                </button>
-            </div>
-        </mat-card-content>
-    </mat-card>
-</div>
+<app-toolbar>
+    <div class="body">
+        <mat-card class="card">
+            <mat-card-title>Menu</mat-card-title>
+            <mat-card-content>
+                <div class="buttons">
+                    <button
+                        class="schedule-button"
+                        mat-raised-button color="primary" 
+                        routerLinkActive="router-link-active"
+                        [routerLink]="['/home/schedule']">
+                        <mat-icon class="schedule-icon">
+                            calendar_today
+                        </mat-icon>
+                        Agendar turnos
+                    </button>
+                    <button
+                        mat-raised-button color="primary" 
+                        [routerLink]="['/home/checkin']" 
+                        routerLinkActive="router-link-active">
+                        <mat-icon class="view-schedule-icon">
+                            event
+                        </mat-icon>
+                        Visualizar turnos
+                    </button>
+                    <button
+                        class="checkin-button"
+                        mat-raised-button color="primary" 
+                        [routerLink]="['/home/checkin']" 
+                        routerLinkActive="router-link-active">
+                        <mat-icon>
+                            done_all
+                        </mat-icon>
+                        Checkin
+                    </button>
+                    <button
+                        class="checkout-button"
+                        mat-raised-button color="primary" 
+                        [routerLink]="['/home/checkin']" 
+                        routerLinkActive="router-link-active">
+                        <mat-icon>
+                            directions_walk
+                        </mat-icon>
+                        Checkout
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</app-toolbar>
