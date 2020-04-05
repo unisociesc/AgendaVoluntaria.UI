@@ -55,9 +55,9 @@ export class CheckinComponent implements OnInit {
           }
         },
         // !REST errors
-        (error: HttpErrorResponse) => {
-          if (error) {
-            this.toasterService.open(error.message, 'OK', {
+        (responeFail: HttpErrorResponse) => {
+          if (responeFail) {
+            this.toasterService.open(responeFail.error.errors, 'OK', {
               duration: 5000,
               panelClass: ['error-toaster']
             });

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-
 import { tap } from 'rxjs/operators';
 
-import * as jwt_decode from 'jwt-decode';
-
+import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
+
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,10 @@ export class LoginService {
   private token: string;
   private url = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) { }
 
   login(email: string, password: string): Observable<any> {
     const payload = {
@@ -32,6 +35,10 @@ export class LoginService {
         this.token = res.data.token;
       })
     );
+  }
+
+  setToken(): void {
+    this.cookieService.set('jwt.token', this.getToken());
   }
 
   getToken(): string {
