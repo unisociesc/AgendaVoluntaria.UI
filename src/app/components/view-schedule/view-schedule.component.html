@@ -1,5 +1,6 @@
+<app-toolbar>
 <ng-container>
-    <table mat-table [dataSource]="userData" class="mat-elevation-z8">
+    <table mat-table [dataSource]="userData" class="mat-elevation-z8" align="center">
     
         <ng-container matColumnDef="Day">
             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Dia </th>
@@ -27,3 +28,5 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </ng-container>
+<app-footer></app-footer>
+</app-toolbar>
