@@ -1,4 +1,4 @@
-import { OnInit, Output, EventEmitter } from '@angular/core';
+import { OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -12,7 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export class CheckinComponent implements OnInit {
-  @Output() sendLocation = new EventEmitter<any>();
 
   positionOptions: IGeoLocationOptions;
   userLocation: IGeoLocationResponse;
