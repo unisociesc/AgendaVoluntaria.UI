@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -41,6 +42,7 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
   declarations: [
     AppComponent,
     LoginComponent,
+    FooterComponent,
     ScheduleComponent,
     CheckinComponent,
     LogoutComponent,

@@ -1,3 +1,26 @@
+.home-content {
+    text-align : center;
+}
+
+.home-button:first-child {
+    margin-top: 0;
+}
+
+.home-button:last-child {
+    margin-bottom: 0;
+}
+
+.home-button {
+    font-size: 1.2em;
+    width: 90%;
+
+    margin: 20px 0;
+}
+
+.home-button-icon {
+    font-size: 2em;
+}
+
 .card {
     width: 74%;
     text-align: center;

@@ -1,4 +1,78 @@
 <app-toolbar>
+    <div class="content">
+        <h1 class="content-menu">Menu</h1>
+
+        <div class="home-content">
+            <button
+                class="home-button"
+                mat-raised-button
+                routerLinkActive="router-link-active"
+                [routerLink]="['/home/schedule']">
+                <mat-icon class="schedule-icon" class="home-button-icon">
+                    calendar_today
+                </mat-icon>
+                <br>
+                Agendar turnos
+            </button>
+
+            <mat-divider></mat-divider>
+
+            <button
+                class="home-button"
+                mat-raised-button 
+                [routerLink]="['/home/view/schedule']" 
+                routerLinkActive="router-link-active">
+                <mat-icon class="home-button-icon">
+                    event
+                </mat-icon>
+                <br>
+                Visualizar turnos
+            </button>
+
+            <mat-divider></mat-divider>
+            
+            <button
+                class="home-button"
+                mat-raised-button 
+                [routerLink]="['/home/checkin']" 
+                routerLinkActive="router-link-active">
+                <mat-icon class="home-button-icon">
+                    done_all
+                </mat-icon>
+                <br>
+                Checkin
+            </button>
+
+            <mat-divider></mat-divider>
+            
+            <button
+                class="home-button"
+                mat-raised-button
+                [routerLink]="['/home/checkout']" 
+                routerLinkActive="router-link-active">
+                <mat-icon class="home-button-icon">
+                    directions_walk
+                </mat-icon>
+                <br>
+                Checkout
+            </button>
+
+            <mat-divider></mat-divider>
+            
+            <button
+                class="home-button"
+                mat-raised-button 
+                [routerLink]="['/home/psych']" 
+                routerLinkActive="router-link-active">
+                <mat-icon class="home-button-icon">
+                    accessibility_new
+                </mat-icon>
+                <br>
+                Ajuda psicológica
+            </button>    
+        </div>
+    </div>
+    <!--
     <div class="body">
         <mat-card class="card">
             <mat-card-title>Menu</mat-card-title>
@@ -12,6 +86,7 @@
                         <mat-icon class="schedule-icon">
                             calendar_today
                         </mat-icon>
+                        <br>
                         Agendar turnos
                     </button>
                     <button
@@ -57,4 +132,6 @@
             </mat-card-content>
         </mat-card>
     </div>
+    -->
+    <app-footer></app-footer>
 </app-toolbar>
