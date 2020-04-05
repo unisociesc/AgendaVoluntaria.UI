@@ -11,6 +11,11 @@ export interface IGeoLocation {
     };
 }
 
+export interface IGeoLocationResponse {
+    latitude: number;
+    longitude: number;
+}
+
 export interface IGeoLocationOptions {
     enableHighAccuracy: boolean;
     timeout: number;

@@ -43,8 +43,8 @@
     <button *ngIf="isAuth()"
       class="toolbar-side-button"
       mat-button color="primary" 
-      [routerLink]="['/home/checkin']" 
-      routerLinkActive="router-link-active">
+      routerLinkActive="router-link-active"
+      (click)="sendCheckInCheckOut()">
       <mat-icon>
           done_all
       </mat-icon>
@@ -54,8 +54,8 @@
     <button *ngIf="isAuth()"
       class="toolbar-side-button"
       mat-button color="primary" 
-      [routerLink]="['/home/checkin']" 
-      routerLinkActive="router-link-active">
+      routerLinkActive="router-link-active"
+      (click)="sendCheckInCheckOut()">
       <mat-icon>
           directions_walk
       </mat-icon>

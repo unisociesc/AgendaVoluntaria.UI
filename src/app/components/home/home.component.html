@@ -33,9 +33,9 @@
             
             <button
                 class="home-button"
-                mat-raised-button 
-                [routerLink]="['/home/checkin']" 
-                routerLinkActive="router-link-active">
+                mat-raised-button
+                routerLinkActive="router-link-active"
+                (click)="sendCheckInCheckOut()">
                 <mat-icon class="home-button-icon">
                     done_all
                 </mat-icon>
@@ -48,8 +48,8 @@
             <button
                 class="home-button"
                 mat-raised-button
-                [routerLink]="['/home/checkout']" 
-                routerLinkActive="router-link-active">
+                routerLinkActive="router-link-active"
+                (click)="sendCheckInCheckOut()">
                 <mat-icon class="home-button-icon">
                     directions_walk
                 </mat-icon>

@@ -45,7 +45,6 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
     LoginComponent,
     FooterComponent,
     ScheduleComponent,
-    CheckinComponent,
     LogoutComponent,
     HomeComponent,
     ToolbarComponent,

@@ -16,12 +16,11 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', component: LoginComponent },
   {
     path: 'home',
-    canActivate: [],
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'schedule', component: ScheduleComponent },
       { path: 'view/schedule', component: ViewScheduleComponent },
-      { path: 'checkin', component: CheckinComponent },
       { path: 'pysch', component: PsychologistComponent },
       { path: '**', redirectTo: '/' }
     ]
