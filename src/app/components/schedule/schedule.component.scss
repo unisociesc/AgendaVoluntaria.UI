@@ -1,49 +1,50 @@
 .schedule-time {
-    margin-top: 20%
+    margin-top: 20px;
+}
+
+.schedule-title {
+    text-align: center;
+    font-size: 0.8em;
 }
 
 table {
     width: 100%;
 }
 
-.data-schedule {
-    width: 123px;
+.schedule-date {
+    width: 50%;
     text-align: center;
-    margin: auto;
+    margin: 10px auto;
 }
 
-.calendar-icon {
-    align-items: center;
-    width: 115px;
+.schedule-date-icon {
+    font-size: 2.5em;
+    margin-bottom: 20px;
 }
 
-.btn-schedule {
+.schedule-date-text {
+    font-size: 1.2em;
+}
+
+.schedule-table-header:first-child {
+    text-align: left;
+}
+
+.schedule-table-header {
+    text-align: center;
+}
+
+.schedule-button {
+    padding: 5px 25px;
+    margin-bottom: 10px;
+
     left: 50%;
     right: 50%;
-    top: 15px;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%,0);
 }
 
 .schedule-box {
     padding-left: 25px
-}
-
-.example-container {
-    position: relative;
-    min-height: 200px;
-}
-
-.example-loading-shade {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 56px;
-    right: 0;
-    background: rgba(0, 0, 0, 0.15);
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .spinner{

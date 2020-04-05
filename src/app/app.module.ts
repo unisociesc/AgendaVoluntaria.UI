@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
 
+import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -23,7 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
@@ -79,7 +80,9 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
     MatSnackBarModule
 
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl() }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
