@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import { PsychologistComponent } from './components/psychologist/psychologist.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: LoginComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'schedule', component: ScheduleComponent },
       { path: 'view/schedule', component: ViewScheduleComponent },
       { path: 'checkin', component: CheckinComponent },
+      { path: 'pysch', component: PsychologistComponent },
       { path: '**', redirectTo: '/' }
     ]
   },

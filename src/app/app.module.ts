@@ -35,6 +35,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
+import { PsychologistComponent } from './components/psychologist/psychologist.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ViewScheduleComponent } from './components/view-schedule/view-schedule.
     LogoutComponent,
     HomeComponent,
     ToolbarComponent,
-    ViewScheduleComponent
+    ViewScheduleComponent,
+    PsychologistComponent
   ],
   imports: [
     BrowserModule,
