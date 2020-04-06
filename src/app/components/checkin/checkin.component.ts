@@ -1,20 +1,28 @@
 import { OnInit } from '@angular/core';
-
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { GeolocationService } from 'src/app/services/geolocation.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import {
   IGeoLocationOptions,
   IGeoLocation,
   IGeoLocationResponse
 } from 'src/app/models/geolocation.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpErrorResponse } from '@angular/common/http';
 
 export class CheckinComponent implements OnInit {
 
   positionOptions: IGeoLocationOptions;
   userLocation: IGeoLocationResponse;
+  toasterOptions: MatSnackBarConfig;
+  messages = {
+    checkInSucess: 'Check-in efetuado com sucesso',
+    checkOutSucess: 'Check-out efetuado com sucesso',
+    locationNotAllowed: 'É necessário permitir sua localização',
+    locationError: 'Não foi possível obter a localização, por favor tente novamente!',
+    locationTimeout: 'Falha ao obter a localização, tente novamente ou conecte-se a uma rede WI-FI',
+    btnOK: 'OK',
+  };
 
   constructor(
     private locationService: GeolocationService,
@@ -43,62 +51,96 @@ export class CheckinComponent implements OnInit {
     });
   }
 
-  sendCheckInCheckOut(): void {
+  doCheckOut(): void {
     this.getUserGeoLocation()
       .subscribe((geoLocation: IGeoLocationResponse) => {
-        this.locationService.doCheckIn(geoLocation).subscribe(res => {
+        this.locationService.doCheckOut(geoLocation).subscribe(res => {
           if (res) {
-            this.toasterService.open('Check-in efetuado com sucesso', 'OK', {
-              duration: 5000,
-              panelClass: ['sucess-toaster']
-            });
+            this.toasterService.open(
+              this.messages.checkOutSucess,
+              this.messages.btnOK,
+              this.toasterOptionsHandle(false)
+            );
           }
         },
         // !REST errors
         (responeFail: HttpErrorResponse) => {
           if (responeFail) {
-            this.toasterService.open(responeFail.error.errors, 'OK', {
-              duration: 5000,
-              panelClass: ['error-toaster']
-            });
+            this.toasterService.open(
+              responeFail.error.errors,
+              this.messages.btnOK,
+              this.toasterOptionsHandle(true)
+            );
           }
         });
       },
       // !Geolocations errors
       (err) => {
-        switch (err) {
-          case 1:
+        this.geolocationErrorHandle(err);
+      }
+    );
+  }
+
+  doCheckIn(): void {
+    this.getUserGeoLocation()
+      .subscribe((geoLocation: IGeoLocationResponse) => {
+        this.locationService.doCheckIn(geoLocation).subscribe(res => {
+          if (res) {
             this.toasterService.open(
-              'É necessário permitir sua localização',
-              'OK',
-              {
-                duration: 5000,
-                panelClass: ['error-toaster']
-              }
+              this.messages.checkInSucess,
+              this.messages.btnOK,
+              this.toasterOptionsHandle(false)
             );
-            break;
-          case 2:
+          }
+        },
+        // !REST errors
+        (responeFail: HttpErrorResponse) => {
+          if (responeFail) {
             this.toasterService.open(
-              'Não foi possível obter a localização, por favor tente novamente!',
-              'OK',
-              {
-                duration: 5000,
-                panelClass: ['error-toaster']
-              }
+              responeFail.error.errors,
+              this.messages.btnOK,
+              this.toasterOptionsHandle(true)
             );
-            break;
-          case 3:
-            this.toasterService.open(
-              'Falha ao obter a localização, tente novamente ou conecte-se a uma rede WI-FI',
-              'OK',
-              {
-                duration: 5000,
-                panelClass: ['error-toaster']
-              }
-            );
-            break;
-        }
-      });
+          }
+        });
+      },
+      // !Geolocations errors
+      (err) => {
+        this.geolocationErrorHandle(err);
+      }
+    );
+  }
+
+  geolocationErrorHandle(errorNUmber: number): void {
+    switch (errorNUmber) {
+      case 1:
+        this.toasterService.open(
+          this.messages.locationNotAllowed,
+          this.messages.btnOK,
+          this.toasterOptionsHandle(true)
+        );
+        break;
+      case 2:
+        this.toasterService.open(
+          this.messages.locationNotAllowed,
+          this.messages.btnOK,
+          this.toasterOptionsHandle(true)
+        );
+        break;
+      case 3:
+        this.toasterService.open(
+          this.messages.locationTimeout,
+          this.messages.btnOK,
+        );
+        break;
+    }
+  }
+
+  toasterOptionsHandle(error?: boolean): MatSnackBarConfig {
+    return this.toasterOptions = {
+      duration: 5000,
+      panelClass: error ? ['error-toaster'] : ['sucess-toaster']
+    };
   }
 
   setGeoLocationOptions(): void {
