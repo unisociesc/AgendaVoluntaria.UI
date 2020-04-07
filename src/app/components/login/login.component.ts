@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Login } from '../models/login-form.model';
+import { Login } from '../../models/login-form.model';
 
-import { LoginService } from '../services/login.service';
+import { LoginService } from '../../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -59,7 +59,8 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.email.value, this.password.value)
       .subscribe(res => {
         if (res) {
-          this.route.navigate(['schedule']);
+          this.loginService.setToken();
+          this.route.navigate(['home']);
         }
       },
       (httpError: HttpErrorResponse) => {
@@ -68,5 +69,9 @@ export class LoginComponent implements OnInit {
           panelClass: ['error-toaster']
         });
       });
+  }
+
+  goForgotPassword() {
+
   }
 }

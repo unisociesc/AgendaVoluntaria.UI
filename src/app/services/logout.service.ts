@@ -6,8 +6,6 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class LogoutService {
-  private jwtCookie: string;
-
   constructor(private cookieService: CookieService) { }
 
   logout(): void {

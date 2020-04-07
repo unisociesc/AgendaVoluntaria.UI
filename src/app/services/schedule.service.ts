@@ -3,7 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { ScheduleDates, SchedulingDone } from '../models/scheduler.model';
+import {
+  ScheduleDates,
+  SchedulingDone,
+  IUserScheduleData,
+  IUserSchedule
+} from '../models/scheduler.model';
 import { LoginService } from './login.service';
 
 import { environment } from '../../environments/environment';
@@ -12,9 +17,15 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ScheduleService {
-  private endpoint = 'shifts';
-  private userShift = 'userShifts';
-  private url = environment.apiUrl;
+  private shiftEndpoint = 'shifts';
+  private userShiftEndpoint = 'userShifts';
+  private apiURL = environment.apiUrl;
+
+  private header = {
+    options: new HttpHeaders({
+      Authorization: `Bearer ${this.loginService.getToken()}`
+    })
+  };
 
   constructor(
     private http: HttpClient,
@@ -22,26 +33,32 @@ export class ScheduleService {
   ) { }
 
   getSchedule(days?: number): Observable<ScheduleDates> {
-    const header = {
-      options: new HttpHeaders({
-        Authorization: `Bearer ${this.loginService.getToken()}`
-      })
-    };
-
     return this.http.get<ScheduleDates>(
-      `${this.url}${this.endpoint}/${days}`, { headers: header.options }
+      `${this.apiURL}${this.shiftEndpoint}/${days}`, { headers: this.header.options }
+    );
+  }
+
+  getUserSchedule(): Observable<IUserScheduleData> {
+    return this.http.get<IUserScheduleData>(
+      `${this.apiURL}${this.userShiftEndpoint}/user`, { headers: this.header.options }
+    );
+  }
+
+  getUserScheduleData(id: string): Observable<IUserSchedule> {
+    return this.http.get<IUserSchedule>(
+      `${this.apiURL}${this.shiftEndpoint}/${id}`, { headers: this.header.options }
     );
   }
 
   sendSchedule(payload): Observable<SchedulingDone> {
-    const header = {
-      options: new HttpHeaders({
-        Authorization: `Bearer ${this.loginService.getToken()}`
-      })
-    };
-
     return this.http.post<SchedulingDone>(
-      `${this.url}${this.userShift}`, payload, { headers: header.options }
+      `${this.apiURL}${this.userShiftEndpoint}`, payload, { headers: this.header.options }
+    );
+  }
+
+  deleteSchedule(payload: object): Observable<any> {
+    return this.http.delete<Observable<any>>(
+      `${this.shiftEndpoint}${this.userShiftEndpoint}${payload}`
     );
   }
 }

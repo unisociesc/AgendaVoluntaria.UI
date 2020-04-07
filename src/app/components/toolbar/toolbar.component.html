@@ -1,0 +1,102 @@
+<mat-sidenav-container class="toolbar-side-container">
+  <mat-sidenav class="toolbar-side-nav" mode="over" #sidenav>
+    <div class="toolbar-side-header">
+      <div class="toolbar-side-header-margin">
+        <h1 class="mat-h3 toolbar-side-header-user">{{ getUserName() }}</h1>
+        <h5 class="mat-h5 toolbar-side-header-email">{{ getEmailAccount() }}</h5>
+      </div>
+
+      <button 
+        mat-icon-button
+        class="toolbar-close-button"
+        color="primary"
+        aria-label="Fechar menu"
+        (click)="sidenav.toggle()">
+        <mat-icon>
+          close
+        </mat-icon>
+      </button>
+    </div>
+
+    <button *ngIf="isAuth()"
+      class="toolbar-side-button"
+      mat-button color="primary" 
+      routerLinkActive="router-link-active"
+      [routerLink]="['/home/schedule']">
+      <mat-icon>
+          calendar_today
+      </mat-icon>
+      Agendar turnos
+    </button>
+
+    <button *ngIf="isAuth()"
+      class="toolbar-side-button"
+      mat-button color="primary" 
+      [routerLink]="['/home/view/schedule']" 
+      routerLinkActive="router-link-active">
+      <mat-icon>
+          event
+      </mat-icon>
+      Visualizar turnos
+    </button>
+
+    <button *ngIf="isAuth()"
+      class="toolbar-side-button"
+      mat-button color="primary" 
+      routerLinkActive="router-link-active"
+      (click)="doCheckIn()">
+      <mat-icon>
+          done_all
+      </mat-icon>
+      Checkin
+    </button>
+
+    <button *ngIf="isAuth()"
+      class="toolbar-side-button"
+      mat-button color="primary" 
+      routerLinkActive="router-link-active"
+      (click)="doCheckOut()">
+      <mat-icon>
+          directions_walk
+      </mat-icon>
+      Checkout
+    </button>
+
+    <!-- <button *ngIf="isAuth()"
+      class="toolbar-side-button"
+      mat-button color="primary" 
+      [routerLink]="['/home/pysch']" 
+      routerLinkActive="router-link-active">
+      <mat-icon>
+        accessibility_new
+      </mat-icon>
+      Ajuda psicológica
+    </button> -->
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="toolbar-container">
+      <mat-toolbar-row>
+        <button mat-icon-button class="toolbar-item">
+          <mat-icon aria-label="Menu lateral" (click)="sidenav.toggle()">menu</mat-icon>
+        </button>
+
+        <button *ngIf="!isAuth()" mat-button class="toolbar-button" (click)="goLogin()">
+          Amigos Voluntários
+        </button>
+
+        <button *ngIf="isAuth()" mat-button class="toolbar-button" (click)="goHome()">
+          Amigos Voluntários
+        </button>
+
+        <span class="toolbar-spacer"></span>
+
+        <button *ngIf="!isAuth()" 
+            mat-button (click)="goLogin()">
+            Entrar
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
