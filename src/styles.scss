@@ -38,3 +38,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     right: 50%;
     transform: translate(-50%, -50%);
 }
+
+.spinner {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    position: absolute;
+    margin: auto;
+    z-index: 1;
+    top: 40%;
+}
