@@ -1,13 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LogoutComponent } from './components/logout/logout.component';
+import { HomeComponent } from './components/home/home.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
+import { PsychologistComponent } from './components/psychologist/psychologist.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
-import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -19,25 +27,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { ScheduleComponent } from './components/schedule/schedule.component';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CheckinComponent } from './components/checkin/checkin.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { LogoutComponent } from './components/logout/logout.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 import { CookieService } from 'ngx-cookie-service';
-import { HomeComponent } from './components/home/home.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
-import { PsychologistComponent } from './components/psychologist/psychologist.component';
+
+import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
 
 @NgModule({
   declarations: [
@@ -76,11 +78,12 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
     MatCheckboxModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
-
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [
     CookieService,
+    { provide: MatDialogRef, useValue: {} },
     { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl() }],
   bootstrap: [AppComponent]
 })

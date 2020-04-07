@@ -16,7 +16,7 @@ import 'moment/locale/pt-br';
 })
 export class ViewScheduleComponent implements OnInit {
 
-  displayedColumns: string[] = ['Day', 'Turn', 'Delete'];
+  displayedColumns: string[] = ['Day', 'Turn'];
   data: IViewScheduleTable[] = [];
   userData: any;
 
