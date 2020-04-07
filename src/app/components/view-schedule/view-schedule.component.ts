@@ -35,7 +35,7 @@ export class ViewScheduleComponent implements OnInit {
 
   getUserSchedule(): void {
     this.scheduleService.getUserSchedule().subscribe(response => {
-      if (response) {
+      if (response.data.length) {
         this.allSchedule = [response];
         this.allSchedule.forEach(schedule => {
           schedule.data.forEach(userInfo => {
@@ -44,6 +44,9 @@ export class ViewScheduleComponent implements OnInit {
         });
 
         this.getUserSchedulerData();
+      } else {
+        this.isLoadingData = false;
+        return;
       }
     });
   }
