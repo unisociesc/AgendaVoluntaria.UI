@@ -56,9 +56,9 @@ export class ScheduleService {
     );
   }
 
-  deleteSchedule(payload: object): Observable<any> {
+  deleteSchedule(id: string): Observable<any> {
     return this.http.delete<Observable<any>>(
-      `${this.shiftEndpoint}${this.userShiftEndpoint}${payload}`
+      `${this.apiURL}${this.userShiftEndpoint}/${id}`, { headers: this.header.options }
     );
   }
 }

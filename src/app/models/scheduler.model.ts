@@ -33,7 +33,7 @@ export interface IUserScheduleData {
 }
 
 export interface IUserScheduleInfo {
-    idUser: string;
+    idUser?: string;
     idShift: string;
     id: string;
 }
@@ -43,7 +43,7 @@ export interface IScheduleTurn {
     end: string;
     maxVolunteers?: number;
     totalVolunteers?: number;
-    id: string;
+    id?: string;
 }
 
 export interface IUserSchedule {

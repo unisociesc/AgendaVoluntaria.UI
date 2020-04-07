@@ -59,19 +59,17 @@
 
             <mat-divider></mat-divider>
             
-            <!-- 
             <button
                 class="home-button"
                 mat-raised-button 
-                [routerLink]="['/home/pysch']" 
-                routerLinkActive="router-link-active">
+                (click)="callHelp()"
+                >
                 <mat-icon class="home-button-icon">
                     accessibility_new
                 </mat-icon>
                 <br>
                 Solicitar ajuda psicológica
             </button>
-            -->
         </div>
     </div>
     <app-footer></app-footer>

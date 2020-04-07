@@ -62,18 +62,15 @@
       Check-out
     </button>
 
-    <!--
     <button *ngIf="isAuth()"
       class="toolbar-side-button"
       mat-button color="primary" 
-      [routerLink]="['/home/pysch']" 
-      routerLinkActive="router-link-active">
+      (click)="callHelp()">
       <mat-icon>
         accessibility_new
       </mat-icon>
       Solicitar ajuda psicológica
     </button>
-    -->
   </mat-sidenav>
 
   <mat-sidenav-content>

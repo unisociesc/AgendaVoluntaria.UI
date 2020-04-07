@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ScheduleService } from 'src/app/services/schedule.service';
 
-import { IUserScheduleData, IScheduleTurn } from 'src/app/models/scheduler.model';
+import { IUserScheduleData, IScheduleTurn, IUserScheduleInfo } from 'src/app/models/scheduler.model';
 import { IViewScheduleTable } from 'src/app/models/view-schedule-table.model';
 
 import * as moment from 'moment';
@@ -16,17 +19,28 @@ import 'moment/locale/pt-br';
 })
 export class ViewScheduleComponent implements OnInit {
 
-  displayedColumns: string[] = ['Day', 'Turn'];
+  displayedColumns: string[] = ['Day', 'Turn', 'Delete'];
   data: IViewScheduleTable[] = [];
   userData: any;
 
   allSchedule: IUserScheduleData[] = [];
   allScheduleData: IScheduleTurn[] = [];
-  turnID: string[] = [];
+  turnID: IUserScheduleInfo[] = [];
 
   isLoadingData: boolean;
 
-  constructor(private scheduleService: ScheduleService) { }
+  toasterOptions = {
+    sucessMessage: 'Agendamento cancelado com sucesso',
+    btnOK: 'OK',
+    timeout: 5000,
+    errorClass: ['error-toaster'],
+    sucessClass: ['sucess-toaster']
+  };
+
+  constructor(
+    private scheduleService: ScheduleService,
+    private toasterService: MatSnackBar
+    ) {}
 
   ngOnInit(): void {
     this.isLoadingData = true;
@@ -39,7 +53,11 @@ export class ViewScheduleComponent implements OnInit {
         this.allSchedule = [response];
         this.allSchedule.forEach(schedule => {
           schedule.data.forEach(userInfo => {
-            this.turnID.push(userInfo.idShift);
+            this.turnID.push({
+                idShift: userInfo.idShift,
+                id: userInfo.id
+              }
+            );
           });
         });
 
@@ -53,12 +71,12 @@ export class ViewScheduleComponent implements OnInit {
 
   getUserSchedulerData(): void {
     this.turnID.forEach(turnID => {
-      this.scheduleService.getUserScheduleData(turnID).subscribe(idResponse => {
+      this.scheduleService.getUserScheduleData(turnID.idShift).subscribe(idResponse => {
         if (idResponse?.data) {
           this.allScheduleData.push({
             begin: idResponse.data.begin,
             end: idResponse.data.end,
-            id: idResponse.data.id
+            id: turnID.id
           });
         }
         this.setTableData();
@@ -76,8 +94,29 @@ export class ViewScheduleComponent implements OnInit {
       .format('LL');
   }
 
-  deleteTurn(elm): void {
-    this.scheduleService.deleteSchedule(elm);
+  deleteTurn(elm: IViewScheduleTable): void {
+    if (elm) {
+      this.scheduleService.deleteSchedule(elm.id).subscribe(res => {
+        if (res) {
+          this.toasterService.open(
+            this.toasterOptions.sucessMessage,
+            this.toasterOptions.btnOK, {
+              duration: this.toasterOptions.timeout,
+              panelClass: this.toasterOptions.sucessClass
+          });
+        }
+      },
+      (requestError: HttpErrorResponse) => {
+        if (requestError.status === 400) {
+          this.toasterService.open(
+            requestError.error.errors,
+            this.toasterOptions.btnOK, {
+            duration: this.toasterOptions.timeout,
+            panelClass: this.toasterOptions.errorClass
+          });
+        }
+      });
+    }
   }
 
   setTableData(): void {
@@ -86,7 +125,8 @@ export class ViewScheduleComponent implements OnInit {
     this.allScheduleData.forEach(scheduleData => {
       this.data.push({
         date: this.formattedDate(scheduleData.begin),
-        times: `${this.formattedHour(scheduleData.begin)} as ${this.formattedHour(scheduleData.end)}`
+        times: `${this.formattedHour(scheduleData.begin)} as ${this.formattedHour(scheduleData.end)}`,
+        id: scheduleData.id
       });
     });
 

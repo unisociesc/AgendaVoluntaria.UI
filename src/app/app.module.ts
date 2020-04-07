@@ -13,7 +13,6 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
-import { PsychologistComponent } from './components/psychologist/psychologist.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -50,8 +49,7 @@ import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
     LogoutComponent,
     HomeComponent,
     ToolbarComponent,
-    ViewScheduleComponent,
-    PsychologistComponent
+    ViewScheduleComponent
   ],
   imports: [
     BrowserModule,
