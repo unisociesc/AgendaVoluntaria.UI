@@ -1,7 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { ScheduleService } from 'src/app/services/schedule.service';
+
+import { IUserScheduleData, IScheduleTurn } from 'src/app/models/scheduler.model';
+import { IViewScheduleTable } from 'src/app/models/view-schedule-table.model';
 
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
@@ -11,27 +14,58 @@ import 'moment/locale/pt-br';
   templateUrl: './view-schedule.component.html',
   styleUrls: ['./view-schedule.component.scss']
 })
-export class ViewScheduleComponent implements OnInit, AfterViewInit {
+export class ViewScheduleComponent implements OnInit {
 
   displayedColumns: string[] = ['Day', 'Turn', 'Delete'];
-  userData;
+  data: IViewScheduleTable[] = [];
+  userData: any;
 
-  isLoadingData;
+  allSchedule: IUserScheduleData[] = [];
+  allScheduleData: IScheduleTurn[] = [];
+  turnID: string[] = [];
 
-  users = [
-    { date: '10/10/2020', times: '05:00 as 20:00' },
-    { date: '11/10/2020' }
-  ];
+  isLoadingData: boolean;
 
   constructor(private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
-    this.setTableData();
+    this.isLoadingData = true;
+    this.getUserSchedule();
   }
 
-  ngAfterViewInit(): void {
+  getUserSchedule(): void {
+    this.scheduleService.getUserSchedule().subscribe(response => {
+      if (response) {
+        this.allSchedule = [response];
+        this.allSchedule.forEach(schedule => {
+          schedule.data.forEach(userInfo => {
+            this.turnID.push(userInfo.idShift);
+          });
+        });
+
+        this.getUserSchedulerData();
+      }
+    });
   }
 
+  getUserSchedulerData(): void {
+    this.turnID.forEach(turnID => {
+      this.scheduleService.getUserScheduleData(turnID).subscribe(idResponse => {
+        if (idResponse?.data) {
+          this.allScheduleData.push({
+            begin: idResponse.data.begin,
+            end: idResponse.data.end,
+            id: idResponse.data.id
+          });
+        }
+        this.setTableData();
+      });
+    });
+  }
+
+  formattedHour(hours: string) {
+    return moment(hours).format('LT');
+  }
 
   formattedDate(date: string) {
     return moment(date)
@@ -44,6 +78,16 @@ export class ViewScheduleComponent implements OnInit, AfterViewInit {
   }
 
   setTableData(): void {
-    this.userData = new MatTableDataSource(this.users);
+    this.data = [];
+
+    this.allScheduleData.forEach(scheduleData => {
+      this.data.push({
+        date: this.formattedDate(scheduleData.begin),
+        times: `${this.formattedHour(scheduleData.begin)} as ${this.formattedHour(scheduleData.end)}`
+      });
+    });
+
+    this.userData = new MatTableDataSource(this.data);
+    this.isLoadingData = false;
   }
 }

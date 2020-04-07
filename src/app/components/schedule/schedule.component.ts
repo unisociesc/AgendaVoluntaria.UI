@@ -108,7 +108,6 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // TODO: Verificar o bug dos numeros da navegação quando avança a página
   schedulePaginator(pageEvent: PageEvent): void {
     if (
       this.paginator.hasNextPage() &&

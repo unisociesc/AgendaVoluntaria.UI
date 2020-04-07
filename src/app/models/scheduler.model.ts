@@ -27,3 +27,25 @@ export interface SchedulingDone {
     idUser: string;
     idShift: string;
 }
+
+export interface IUserScheduleData {
+    data: IUserScheduleInfo[];
+}
+
+export interface IUserScheduleInfo {
+    idUser: string;
+    idShift: string;
+    id: string;
+}
+
+export interface IScheduleTurn {
+    begin: string;
+    end: string;
+    maxVolunteers?: number;
+    totalVolunteers?: number;
+    id: string;
+}
+
+export interface IUserSchedule {
+    data: IScheduleTurn;
+}
