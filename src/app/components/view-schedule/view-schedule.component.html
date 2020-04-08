@@ -20,8 +20,8 @@
                     </ng-container>
 
                     <ng-container matColumnDef="Delete">
-                        <th mat-header-cell *matHeaderCellDef> </th>
-                        <td mat-cell *matCellDef="let row" style="padding-left: 10px;">
+                        <th mat-header-cell *matHeaderCellDef style="padding: 0;">Cancelar Turno</th>
+                        <td mat-cell *matCellDef="let row" style="text-align: center;">
                             <button mat-button (click)="deleteTurn(row)">
                                 <mat-icon>close</mat-icon>
                             </button>
