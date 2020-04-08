@@ -1,35 +1,38 @@
 <app-toolbar>
     <mat-spinner *ngIf="isLoadingData" class="spinner"></mat-spinner>
-
     <ng-container *ngIf="!isLoadingData">
-        <table 
-            mat-table [dataSource]="userData"
-            class="mat-elevation-z8 schedule-view"
-            align="center">
-            <ng-container matColumnDef="Day">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Dia </th>
-                <td mat-cell *matCellDef="let row"> {{row.date}} </td>
-            </ng-container>
-        
-            <ng-container matColumnDef="Turn">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Turno </th>
-                <td mat-cell *matCellDef="let row" style="padding-left: 10px;"> 
-                    {{row.times}}
-                </td>
-            </ng-container>
+        <div class="content">
+            <h1 class="content-menu">Visualizar meus turnos</h1>
+            
+            <mat-card class="schedule-view">
+                <table 
+                    mat-table [dataSource]="userData"
+                    class="schedule-view-table"
+                    align="center">
+                    <ng-container matColumnDef="Day">
+                        <th mat-header-cell *matHeaderCellDef class="schedule-view-table-cell">Data</th>
+                        <td mat-cell *matCellDef="let row" class="schedule-view-table-cell"> {{row.date}} </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="Turn">
+                        <th mat-header-cell *matHeaderCellDef class="schedule-view-table-cell">Horário</th>
+                        <td mat-cell *matCellDef="let row" class="schedule-view-table-cell"> {{row.times}} </td>
+                    </ng-container>
 
-            <!-- <ng-container matColumnDef="Delete">
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell *matCellDef="let row" style="padding-left: 10px;">
-                    <button mat-button (click)="deleteTurn(row)">
-                        <mat-icon>close</mat-icon>
-                    </button>
-                </td>
-            </ng-container> -->
-        
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+                    <ng-container matColumnDef="Delete">
+                        <th mat-header-cell *matHeaderCellDef style="padding: 0;">Cancelar Turno</th>
+                        <td mat-cell *matCellDef="let row" style="text-align: center;">
+                            <button mat-button (click)="deleteTurn(row)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </mat-card>
+        </div>
+        <app-footer></app-footer>
     </ng-container>
-    <app-footer></app-footer>
 </app-toolbar>
