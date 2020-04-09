@@ -41,6 +41,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import { environment } from '../environments/environment';
     ViewScheduleComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -80,7 +81,8 @@ import { environment } from '../environments/environment';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatDialogModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    RouterModule
   ],
   providers: [
     CookieService,

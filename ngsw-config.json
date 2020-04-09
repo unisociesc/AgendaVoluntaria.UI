@@ -19,7 +19,7 @@
     }, {
       "name": "assets",
       "installMode": "lazy",
-      "updateMode": "prefetch",
+      "updateMode": "lazy",
       "resources": {
         "files": [
           "/assets/**",
@@ -28,5 +28,12 @@
       }
     }
   ],
-  "dataGroups": []
+  "dataGroups": [
+    {
+      "name": "",
+      "urls": [],
+      "cacheConfig": {},
+      "version": 1
+    }
+  ]
 }
