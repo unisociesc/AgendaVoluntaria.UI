@@ -39,6 +39,8 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 
 import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
     HttpClientModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     CookieService,
