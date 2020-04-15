@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -89,10 +89,13 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
 
   populateTableWithSchedulers(): void {
     if (this.allSchedule) {
+      this.getPagesNumber();
+      this.initializeTableNavigation();
+
       this.allSchedule.map(data => {
-        if (moment(data.date).locale('pt-BR').format('LL') === this.actualDate) {
+        if (this.transformDate(data.date) === this.actualDate) {
           this.displayTable.push({
-            data: moment(data.date).locale('pt-BR').format('LL'),
+            data: this.transformDate(data.date),
             horarios: `${data.hours.begin} as ${data.hours.end}`,
             id: data.id,
             maxVolunteer: data.maxVolunteer,
@@ -108,11 +111,34 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     }
   }
 
+  transformDate(date: string): string {
+    return moment(date).locale('pt-BR').format('LL');
+  }
+
+  getPagesNumber(): number {
+    let page = 0;
+    let actualDate;
+    let pastDate;
+
+    if (this.allSchedule?.length) {
+      this.allSchedule.forEach(schedule => {
+        actualDate = this.transformDate(schedule.date);
+
+        if (actualDate !== pastDate) {
+          pastDate = actualDate;
+          page++;
+        }
+      });
+    }
+
+    return page;
+  }
+
   schedulePaginator(pageEvent: PageEvent): void {
     if (
       this.paginator.hasNextPage() &&
-      pageEvent.pageIndex >= 1 &&
-      pageEvent.previousPageIndex >= 0) {
+      pageEvent?.pageIndex >= 1 &&
+      pageEvent?.previousPageIndex >= 0) {
 
       this.scheduleHandle('add', pageEvent.pageIndex);
 
@@ -125,7 +151,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     }
     if (
       !this.paginator.hasPreviousPage() &&
-      pageEvent.previousPageIndex >= 0
+      pageEvent?.previousPageIndex >= 0
     ) {
 
       this.scheduleHandle('subtract', pageEvent.pageIndex);
@@ -142,7 +168,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   updateScheduleTable(): void {
     this.dataSource.data = [];
     this.allSchedule.forEach(allData => {
-      if (moment(allData.date).locale('pt-BR').format('LL') === this.actualDate) {
+      if (this.transformDate(allData.date) === this.actualDate) {
         this.dataSource.data.push({
           data: allData.date,
           id: allData.id,
@@ -160,8 +186,8 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     let countDate = this.actualDate;
 
     this.allSchedule.forEach(allData => {
-      if (moment(allData.date).locale('pt-BR').format('LL') !== countDate) {
-        countDate = moment(allData.date).locale('pt-BR').format('LL');
+      if (this.transformDate(allData.date) !== countDate) {
+        countDate = this.transformDate(allData.date);
         count += 1;
       }
     });
@@ -190,9 +216,9 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   }
 
   initializeTableNavigation(): void {
-    this.pageSize = 1;
-    this.pageIndex = 0;
-    this.length = 15;
+      this.pageSize = 1;
+      this.pageIndex = 0;
+      this.length = this.getPagesNumber();
   }
 
   verifyMaxNumberVolunteers(): boolean {
