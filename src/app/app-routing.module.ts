@@ -8,6 +8,7 @@ import { CheckinComponent } from './components/checkin/checkin.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { HomeComponent } from './components/home/home.component';
 import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
+import { ViewPsychologistComponent } from './components/view-psychologist/view-psychologist.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'schedule', component: ScheduleComponent },
       { path: 'view/schedule', component: ViewScheduleComponent },
+      { path: 'view/spychologist', component: ViewPsychologistComponent },
       { path: '**', redirectTo: '/' }
     ]
   },

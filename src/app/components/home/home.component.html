@@ -62,13 +62,24 @@
             <button
                 class="home-button"
                 mat-raised-button 
-                (click)="callHelp()"
-                >
+                (click)="callHelp()">
                 <mat-icon class="home-button-icon">
                     accessibility_new
                 </mat-icon>
                 <br>
                 Solicitar ajuda psicológica
+            </button>
+
+            <button
+                class="home-button"
+                mat-raised-button 
+                [routerLink]="['/home/view/psychologist']" 
+                routerLinkActive="router-link-active">
+                <mat-icon class="home-button-icon">
+                    local_hospital
+                </mat-icon>
+                <br>
+                Pedidos de ajuda psicológica
             </button>
         </div>
     </div>

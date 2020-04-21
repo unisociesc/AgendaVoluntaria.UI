@@ -13,6 +13,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
+import { ViewPsychologistComponent } from './components/view-psychologist/view-psychologist.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -52,7 +53,8 @@ import { RouterModule } from '@angular/router';
     LogoutComponent,
     HomeComponent,
     ToolbarComponent,
-    ViewScheduleComponent
+    ViewScheduleComponent,
+    ViewPsychologistComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
