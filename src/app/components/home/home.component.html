@@ -51,13 +51,22 @@
                 Solicitar ajuda psicológica
             </button>
 
-            <button RoleVerification mat-raised-button
+            <button [RoleVerification]="'psychologist'" mat-raised-button
                 class="home-button" [routerLink]="['/home/view/psychologist']">
                 <mat-icon class="home-button-icon">
                     local_hospital
                 </mat-icon>
                 <br>
                 Pedidos de ajuda psicológica
+            </button>
+
+            <button [RoleVerification]="'coordinator'" mat-raised-button
+                class="home-button" [routerLink]="['/home/view/schedule-details']">
+                <mat-icon class="home-button-icon">
+                    list
+                </mat-icon>
+                <br>
+                Visualizar detalhes dos turnos
             </button>
         </div>
     </div>

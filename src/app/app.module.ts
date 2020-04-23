@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -17,6 +18,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
 import { ViewPsychologistComponent } from './components/view-psychologist/view-psychologist.component';
+import { ViewScheduleDetailsComponent } from './components/view-schedule-details/view-schedule-details.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 
 import { CookieService } from 'ngx-cookie-service';
@@ -35,11 +37,13 @@ import { HideElementsDirective } from './directives/hide-elements.directive';
     ToolbarComponent,
     ViewScheduleComponent,
     ViewPsychologistComponent,
+    ViewScheduleDetailsComponent,
     HideElementsDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     MaterialModule,
+    MatExpansionModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

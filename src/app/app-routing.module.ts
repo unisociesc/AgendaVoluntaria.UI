@@ -8,6 +8,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { HomeComponent } from './components/home/home.component';
 import { ViewScheduleComponent } from './components/view-schedule/view-schedule.component';
 import { ViewPsychologistComponent } from './components/view-psychologist/view-psychologist.component';
+import { ViewScheduleDetailsComponent } from './components/view-schedule-details/view-schedule-details.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
@@ -31,7 +32,7 @@ const routes: Routes = [
       },
       {
         path: 'view/schedule-details', 
-        component: ViewPsychologistComponent, 
+        component: ViewScheduleDetailsComponent, 
         canActivate: [RoleGuard], 
         data: { 
           roles : ['coordinator'] 

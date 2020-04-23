@@ -1,0 +1,35 @@
+<app-toolbar>
+    <mat-spinner *ngIf="isLoadingData" class="spinner"></mat-spinner>
+    <ng-container *ngIf="!isLoadingData">
+        <div class="content">
+            <h1 class="content-menu">Visualizar detalhes dos turnos</h1>
+
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let shift of shifts">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="view-schedule-details-title">
+                            {{shift.date}} - {{shift.hours.begin}} até {{shift.hours.end}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <mat-card class="view-schedule-details-empty-users" *ngIf="shift.users.length == 0">
+                        Não houve voluntários para esta agenda.
+                    </mat-card>
+
+                    <mat-card class="view-schedule-details-users" *ngFor="let user of shift.users">
+                        <div>Nome: {{user.name}}</div>
+                        <div *ngIf="user.cpf">CPF: {{user.cpf}}</div>
+                        <div *ngIf="user.phone">Telefone: {{user.phone}}</div>
+                        <div *ngIf="user.email">E-mail: {{user.email}}</div>    
+                    </mat-card>
+
+                    <div *ngIf="shift.users.length > 0" 
+                        class="view-schedule-details-users-footer">
+                        Total de voluntários: {{shift.totalVolunteers}}
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion> 
+        </div>
+        <app-footer></app-footer>
+    </ng-container>
+</app-toolbar>
