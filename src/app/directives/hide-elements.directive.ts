@@ -6,7 +6,7 @@ import { LoginService } from '../services/login.service';
   selector: '[RoleVerification]'
 })
 export class HideElementsDirective {
-  @Input() roles: string[];
+  @Input() roles: string[] = [];
   
   constructor(private elm: ElementRef, private loginService: LoginService) {
     if (!this.roles.includes(this.loginService.getUserRole())) {
