@@ -20,6 +20,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
 
 @NgModule({
@@ -44,6 +45,7 @@ import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatExpansionModule
     ],
     exports: [
     MatSlideToggleModule,
@@ -66,6 +68,7 @@ import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatExpansionModule
     ],
     providers: [
         { provide: MatDialogRef, useValue: {} },

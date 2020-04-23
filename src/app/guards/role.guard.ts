@@ -8,11 +8,12 @@ import { LoginService } from '../services/login.service';
 })
 export class RoleGuard implements CanActivate {
   constructor(private loginService: LoginService) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let roles = route.data?.roles ?? [] as Array<string>;
-      console.log(roles);
+      const roles = route.data?.roles ?? [] as Array<string>;
+
       if (roles.includes(this.loginService.getUserRole())) {
         return of(true);
       }
