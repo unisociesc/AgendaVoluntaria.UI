@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 import { LoginService } from '../services/login.service';
 
 @Directive({
@@ -6,9 +6,10 @@ import { LoginService } from '../services/login.service';
   selector: '[RoleVerification]'
 })
 export class HideElementsDirective {
-
+  @Input() roles: string[];
+  
   constructor(private elm: ElementRef, private loginService: LoginService) {
-    if (this.loginService.getUserRole() !== 'psychologist') {
+    if (!this.roles.includes(this.loginService.getUserRole())) {
       this.elm.nativeElement.style.display = 'none';
     }
   }
