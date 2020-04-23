@@ -27,7 +27,7 @@ const routes: Routes = [
         component: ViewPsychologistComponent, 
         canActivate: [RoleGuard], 
         data: { 
-          roles : ['psychologist'] 
+          roles : ['psychologist','admin'] 
         }
       },
       {
@@ -35,7 +35,7 @@ const routes: Routes = [
         component: ViewScheduleDetailsComponent, 
         canActivate: [RoleGuard], 
         data: { 
-          roles : ['coordinator'] 
+          roles : ['coordinator','admin'] 
         }
       },
       { path: '**', redirectTo: '/' }
