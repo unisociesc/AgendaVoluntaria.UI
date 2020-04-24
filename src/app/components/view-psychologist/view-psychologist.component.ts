@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { PsychologistService } from 'src/app/services/psychologist.service';
 
 import { IVolunteerNeedPsychologist } from 'src/app/models/psychologist.model';
 import { IViewVolunteerNeedPsychologistTable } from 'src/app/models/view-psychologist-table.model';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-view-psychologist',
@@ -16,13 +16,11 @@ import { IViewVolunteerNeedPsychologistTable } from 'src/app/models/view-psychol
 })
 export class ViewPsychologistComponent implements OnInit {
 
-  displayedColumns: string[] = ['Name', 'Details', 'Help'];
-  
   data: IViewVolunteerNeedPsychologistTable[] = [];
-  userData: any;
+  userData: Observable<any>;
 
   allVolunteersNeedPsychologist: IVolunteerNeedPsychologist[] = [];
-
+  panelOpenState = false;
   isLoadingData: boolean;
 
   toasterOptions = {
@@ -47,7 +45,6 @@ export class ViewPsychologistComponent implements OnInit {
     this.psychologistService.getVolunteersNeedPsychologist().subscribe(response => {
       if (response.data.length) {
         this.allVolunteersNeedPsychologist = response.data;
-        
         this.setTableData();
       } else {
         this.isLoadingData = false;
@@ -62,7 +59,7 @@ export class ViewPsychologistComponent implements OnInit {
         if (res) {
           this.toasterService.open(
             this.toasterOptions.sucessMessage,
-            this.toasterOptions.btnOK, 
+            this.toasterOptions.btnOK,
               {
                 duration: this.toasterOptions.timeout,
                 panelClass: this.toasterOptions.sucessClass
@@ -97,7 +94,7 @@ export class ViewPsychologistComponent implements OnInit {
       });
     });
 
-    this.userData = new MatTableDataSource(this.data);
+    this.userData = of(this.data);
     this.isLoadingData = false;
   }
 }

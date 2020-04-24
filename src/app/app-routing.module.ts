@@ -22,7 +22,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'schedule', component: ScheduleComponent },
       { path: 'view/schedule', component: ViewScheduleComponent },
-      { 
+      {
         path: 'view/psychologist',
         component: ViewPsychologistComponent,
         canActivate: [RoleGuard],
@@ -34,7 +34,7 @@ const routes: Routes = [
         path: 'view/schedule-details',
         component: ViewScheduleDetailsComponent,
         canActivate: [RoleGuard],
-        data: { 
+        data: {
           roles : ['coordinator', 'admin']
         }
       },
