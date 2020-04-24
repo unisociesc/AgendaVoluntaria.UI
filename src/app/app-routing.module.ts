@@ -23,19 +23,19 @@ const routes: Routes = [
       { path: 'schedule', component: ScheduleComponent },
       { path: 'view/schedule', component: ViewScheduleComponent },
       { 
-        path: 'view/psychologist', 
-        component: ViewPsychologistComponent, 
-        canActivate: [RoleGuard], 
-        data: { 
-          roles : ['psychologist','admin'] 
+        path: 'view/psychologist',
+        component: ViewPsychologistComponent,
+        canActivate: [RoleGuard],
+        data: {
+          roles : ['psychologist', 'admin']
         }
       },
       {
-        path: 'view/schedule-details', 
-        component: ViewScheduleDetailsComponent, 
-        canActivate: [RoleGuard], 
+        path: 'view/schedule-details',
+        component: ViewScheduleDetailsComponent,
+        canActivate: [RoleGuard],
         data: { 
-          roles : ['coordinator','admin'] 
+          roles : ['coordinator', 'admin']
         }
       },
       { path: '**', redirectTo: '/' }
