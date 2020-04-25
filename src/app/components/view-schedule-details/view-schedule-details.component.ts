@@ -17,6 +17,7 @@ export class ViewScheduleDetailsComponent implements OnInit {
   shifts: IScheduleDetails[] = [];
 
   isLoadingData: boolean;
+  dias: number = 15;
 
   constructor(
     private scheduleService: ScheduleDetailsService
@@ -28,7 +29,7 @@ export class ViewScheduleDetailsComponent implements OnInit {
   }
 
   getScheduleDetails(): void {
-    this.scheduleService.getShiftsDetails(15).subscribe(response => {
+    this.scheduleService.getShiftsDetails(this.dias).subscribe(response => {
       if (response.data.length) {
         this.shifts = response.data;
         

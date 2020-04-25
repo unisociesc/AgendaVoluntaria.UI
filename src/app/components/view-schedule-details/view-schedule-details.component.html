@@ -4,6 +4,10 @@
         <div class="content">
             <h1 class="content-menu">Visualizar detalhes dos turnos</h1>
 
+            <mat-card class="view-schedule-details-empty" *ngIf="shifts.length == 0">
+                Não há turnos para os próximos {{dias}} dias.
+            </mat-card>
+            
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let shift of shifts">
                     <mat-expansion-panel-header>
@@ -12,7 +16,7 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
-                    <mat-card class="view-schedule-details-empty-users" *ngIf="shift.users.length == 0">
+                    <mat-card class="view-schedule-details-empty" *ngIf="shift.users.length == 0">
                         Não houve voluntários para esta agenda.
                     </mat-card>
 
