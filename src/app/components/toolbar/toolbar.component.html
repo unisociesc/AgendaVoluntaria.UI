@@ -20,8 +20,7 @@
 
     <button *ngIf="isAuth()"
       class="toolbar-side-button"
-      mat-button color="primary" 
-      routerLinkActive="router-link-active"
+      mat-button color="primary"
       [routerLink]="['/home/schedule']">
       <mat-icon>
           calendar_today
@@ -32,8 +31,7 @@
     <button *ngIf="isAuth()"
       class="toolbar-side-button"
       mat-button color="primary" 
-      [routerLink]="['/home/view/schedule']" 
-      routerLinkActive="router-link-active">
+      [routerLink]="['/home/view/schedule']">
       <mat-icon>
           event
       </mat-icon>
@@ -42,8 +40,7 @@
 
     <button *ngIf="isAuth()"
       class="toolbar-side-button"
-      mat-button color="primary" 
-      routerLinkActive="router-link-active"
+      mat-button color="primary"
       (click)="doCheckIn()">
       <mat-icon>
           done_all
@@ -53,8 +50,7 @@
 
     <button *ngIf="isAuth()"
       class="toolbar-side-button"
-      mat-button color="primary" 
-      routerLinkActive="router-link-active"
+      mat-button color="primary"
       (click)="doCheckOut()">
       <mat-icon>
           directions_walk
@@ -70,6 +66,26 @@
         accessibility_new
       </mat-icon>
       Solicitar ajuda psicológica
+    </button>
+
+    <button [RoleVerification]="'psychologist'"
+      class="toolbar-side-button"
+      mat-button color="primary" 
+      [routerLink]="['/home/view/psychologist']">
+      <mat-icon>
+        local_hospital
+      </mat-icon>
+      Pedidos de ajuda psicológica
+    </button>
+
+    <button [RoleVerification]="'coordinator'"
+      class="toolbar-side-button"
+      mat-button color="primary" 
+      [routerLink]="['/home/view/schedule-details']">
+      <mat-icon>
+        list
+      </mat-icon>
+      Visualizar detalhes dos turnos
     </button>
   </mat-sidenav>
 

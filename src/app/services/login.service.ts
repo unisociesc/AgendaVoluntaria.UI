@@ -53,4 +53,8 @@ export class LoginService {
     const decodedToken = this.decodeJWT();
     return decodedToken.IdUser;
   }
+
+  getUserRole(): string {
+    return this.decodeJWT().role;
+  }
 }

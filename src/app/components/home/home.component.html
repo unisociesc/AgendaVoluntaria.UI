@@ -3,11 +3,7 @@
         <h1 class="content-menu">Menu</h1>
 
         <div class="home-content">
-            <button
-                class="home-button"
-                mat-raised-button
-                routerLinkActive="router-link-active"
-                [routerLink]="['/home/schedule']">
+            <button mat-raised-button class="home-button" [routerLink]="['/home/schedule']">
                 <mat-icon class="schedule-icon" class="home-button-icon">
                     calendar_today
                 </mat-icon>
@@ -17,11 +13,7 @@
 
             <mat-divider></mat-divider>
 
-            <button
-                class="home-button"
-                mat-raised-button 
-                [routerLink]="['/home/view/schedule']" 
-                routerLinkActive="router-link-active">
+            <button mat-raised-button class="home-button" [routerLink]="['/home/view/schedule']">
                 <mat-icon class="home-button-icon">
                     event
                 </mat-icon>
@@ -31,11 +23,7 @@
 
             <mat-divider></mat-divider>
             
-            <button
-                class="home-button"
-                mat-raised-button
-                routerLinkActive="router-link-active"
-                (click)="doCheckIn()">
+            <button mat-raised-button class="home-button" (click)="doCheckIn()">
                 <mat-icon class="home-button-icon">
                     done_all
                 </mat-icon>
@@ -45,11 +33,7 @@
 
             <mat-divider></mat-divider>
             
-            <button
-                class="home-button"
-                mat-raised-button
-                routerLinkActive="router-link-active"
-                (click)="doCheckOut()">
+            <button mat-raised-button class="home-button" (click)="doCheckOut()">
                 <mat-icon class="home-button-icon">
                     directions_walk
                 </mat-icon>
@@ -59,16 +43,30 @@
 
             <mat-divider></mat-divider>
             
-            <button
-                class="home-button"
-                mat-raised-button 
-                (click)="callHelp()"
-                >
+            <button mat-raised-button class="home-button" (click)="callHelp()">
                 <mat-icon class="home-button-icon">
                     accessibility_new
                 </mat-icon>
                 <br>
                 Solicitar ajuda psicológica
+            </button>
+
+            <button [RoleVerification]="'psychologist'" mat-raised-button
+                class="home-button" [routerLink]="['/home/view/psychologist']">
+                <mat-icon class="home-button-icon">
+                    local_hospital
+                </mat-icon>
+                <br>
+                Pedidos de ajuda psicológica
+            </button>
+
+            <button [RoleVerification]="'coordinator'" mat-raised-button
+                class="home-button" [routerLink]="['/home/view/schedule-details']">
+                <mat-icon class="home-button-icon">
+                    list
+                </mat-icon>
+                <br>
+                Visualizar detalhes dos turnos
             </button>
         </div>
     </div>
