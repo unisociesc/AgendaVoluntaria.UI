@@ -22,7 +22,6 @@
 
                     <mat-card class="view-schedule-details-users" *ngFor="let user of shift.users">
                         <div>Nome: {{user.name}}</div>
-                        <div *ngIf="user.cpf">CPF: {{user.cpf}}</div>
                         <div *ngIf="user.phone">Telefone: {{user.phone}}</div>
                         <div *ngIf="user.email">E-mail: {{user.email}}</div>    
                     </mat-card>
