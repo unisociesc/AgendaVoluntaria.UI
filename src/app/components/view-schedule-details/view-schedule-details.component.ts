@@ -17,7 +17,8 @@ export class ViewScheduleDetailsComponent implements OnInit {
   shifts: IScheduleDetails[] = [];
 
   isLoadingData: boolean;
-  dias: number = 15;
+  dias = 15;
+  userBrowserLanguage = window.navigator.language;
 
   constructor(
     private scheduleService: ScheduleDetailsService
@@ -32,7 +33,6 @@ export class ViewScheduleDetailsComponent implements OnInit {
     this.scheduleService.getShiftsDetails(this.dias).subscribe(response => {
       if (response.data.length) {
         this.shifts = response.data;
-        
         this.shifts.forEach(x => x.date = this.formattedDate(x.date));
       }
 
@@ -42,7 +42,7 @@ export class ViewScheduleDetailsComponent implements OnInit {
 
   formattedDate(date: string) {
     return moment(date)
-      .locale('pt-BR')
+      .locale(this.userBrowserLanguage)
       .format('LL');
   }
 }

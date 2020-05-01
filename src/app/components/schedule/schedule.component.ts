@@ -33,8 +33,9 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   checkDone: boolean;
 
   // DATE
+  userBrowserLanguage = window.navigator.language;
   moment = moment();
-  actualDate = moment().locale('pt-BR').format('LL');
+  actualDate = moment().locale(this.userBrowserLanguage).format('LL');
   date = this.moment;
 
   // PAGINATION
@@ -112,7 +113,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   }
 
   transformDate(date: string): string {
-    return moment(date).locale('pt-BR').format('LL');
+    return moment(date).locale(this.userBrowserLanguage).format('LL');
   }
 
   getPagesNumber(): number {
@@ -237,19 +238,19 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     if (modifyDate === 'add') {
       this.actualDate = moment()
         .add(days, 'day')
-        .locale('pt-BR')
+        .locale(this.userBrowserLanguage)
         .format('LL');
 
     } else if (modifyDate === 'subtract') {
 
       this.actualDate = moment()
         .subtract(days, 'day')
-        .locale('pt-BR')
+        .locale(this.userBrowserLanguage)
         .format('LL');
     } else {
 
       this.actualDate = moment()
-        .locale('pt-BR')
+        .locale(this.userBrowserLanguage)
         .format('LL');
     }
 

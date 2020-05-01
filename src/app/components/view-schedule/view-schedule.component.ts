@@ -29,6 +29,8 @@ export class ViewScheduleComponent implements OnInit {
 
   isLoadingData: boolean;
 
+  userBrowserLanguage = window.navigator.language;
+
   toasterOptions = {
     sucessMessage: 'Agendamento cancelado com sucesso',
     btnOK: 'OK',
@@ -90,7 +92,7 @@ export class ViewScheduleComponent implements OnInit {
 
   formattedDate(date: string) {
     return moment(date)
-      .locale('pt-BR')
+      .locale(this.userBrowserLanguage)
       .format('LL');
   }
 
