@@ -52,7 +52,10 @@ import { HideElementsDirective } from './directives/hide-elements.directive';
     HttpClientModule,
     RouterModule
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    { provide: Window, useValue: window }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

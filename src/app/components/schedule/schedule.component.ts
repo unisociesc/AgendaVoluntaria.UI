@@ -33,9 +33,9 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   checkDone: boolean;
 
   // DATE
-  userBrowserLanguage = window.navigator.language;
+  userBrowserLanguage: string;
   moment = moment();
-  actualDate = moment().locale(this.userBrowserLanguage).format('LL');
+  actualDate: any;
   date = this.moment;
 
   // PAGINATION
@@ -54,10 +54,14 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   constructor(
     private scheduleService: ScheduleService,
     private loginService: LoginService,
-    private toaster: MatSnackBar
+    private toaster: MatSnackBar,
+    private window: Window
   ) { }
 
   ngOnInit(): void {
+    this.userBrowserLanguage = this.window.navigator.language;
+    this.actualDate = moment().locale(this.userBrowserLanguage).format('LL');
+
     this.saveUserJWT();
     this.getScheduler();
     this.scheduleHandle();

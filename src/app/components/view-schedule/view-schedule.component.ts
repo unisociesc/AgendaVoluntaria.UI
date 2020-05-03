@@ -29,7 +29,7 @@ export class ViewScheduleComponent implements OnInit {
 
   isLoadingData: boolean;
 
-  userBrowserLanguage = window.navigator.language;
+  userBrowserLanguage: string;
 
   toasterOptions = {
     sucessMessage: 'Agendamento cancelado com sucesso',
@@ -41,11 +41,13 @@ export class ViewScheduleComponent implements OnInit {
 
   constructor(
     private scheduleService: ScheduleService,
-    private toasterService: MatSnackBar
+    private toasterService: MatSnackBar,
+    private window: Window
     ) {}
 
   ngOnInit(): void {
     this.isLoadingData = true;
+    this.userBrowserLanguage = this.window.navigator.language;
     this.getUserSchedule();
   }
 
