@@ -18,7 +18,7 @@ export class ViewScheduleDetailsComponent implements OnInit {
 
   isLoadingData: boolean;
   dias = 15;
-  userBrowserLanguage = window.navigator.language;
+  // userBrowserLanguage = window.navigator.language;
 
   constructor(
     private scheduleService: ScheduleDetailsService
@@ -42,7 +42,7 @@ export class ViewScheduleDetailsComponent implements OnInit {
 
   formattedDate(date: string) {
     return moment(date)
-      .locale(this.userBrowserLanguage)
+      .locale('pt-BR')
       .format('LL');
   }
 }

@@ -59,8 +59,8 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.userBrowserLanguage = this.window.navigator.language;
-    this.actualDate = moment().locale(this.userBrowserLanguage).format('LL');
+    // 'pt-BR' = this.window.navigator.language;
+    this.actualDate = moment().locale('pt-BR').format('LL');
 
     this.saveUserJWT();
     this.getScheduler();
@@ -117,7 +117,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   }
 
   transformDate(date: string): string {
-    return moment(date).locale(this.userBrowserLanguage).format('LL');
+    return moment(date).locale('pt-BR').format('LL');
   }
 
   getPagesNumber(): number {
@@ -242,19 +242,19 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
     if (modifyDate === 'add') {
       this.actualDate = moment()
         .add(days, 'day')
-        .locale(this.userBrowserLanguage)
+        .locale('pt-BR')
         .format('LL');
 
     } else if (modifyDate === 'subtract') {
 
       this.actualDate = moment()
         .subtract(days, 'day')
-        .locale(this.userBrowserLanguage)
+        .locale('pt-BR')
         .format('LL');
     } else {
 
       this.actualDate = moment()
-        .locale(this.userBrowserLanguage)
+        .locale('pt-BR')
         .format('LL');
     }
 
